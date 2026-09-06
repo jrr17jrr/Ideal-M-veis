@@ -5,18 +5,22 @@ import { usePathname, useRouter } from "next/navigation";
 import type { CategorySlug, Product } from "@/types";
 import { filterAndSort } from "@/lib/catalog";
 import { cn } from "@/lib/cn";
+import { categories } from "@/data/categories";
 import { Button } from "@/components/ui/Button";
-import { Select } from "@/components/ui/Field";
 import { Drawer } from "@/components/ui/Drawer";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { ProductGrid } from "@/components/product/ProductGrid";
-import { SlidersIcon, CloseIcon, SearchIcon } from "@/components/ui/icons";
+import { SlidersIcon, CloseIcon, SearchIcon, ChevronDown } from "@/components/ui/icons";
 import { FilterPanel } from "./FilterPanel";
-import { SORT_OPTIONS, STYLE_OPTIONS } from "./filterConfig";
-import { countActiveFilters, EMPTY_CATALOG_STATE, type CatalogFilterState } from "./types";
+import { SORT_OPTIONS, STYLE_OPTIONS, ROOM_OPTIONS } from "./filterConfig";
+import {
+  countActiveFilters,
+  EMPTY_CATALOG_STATE,
+  type CatalogFilterState,
+} from "./types";
 import { catalogStateToQuery } from "./catalogParams";
 
-const PAGE_SIZE = 9;
+const PAGE_SIZE = 12;
 
 interface Props {
   products: Product[];
@@ -24,10 +28,14 @@ interface Props {
   initialState: CatalogFilterState;
   /** Trava a categoria (páginas /categoria/[slug]) */
   lockedCategory?: CategorySlug;
-  /** Some com a barra de busca interna (ex.: página /busca já tem contexto) */
   showSearch?: boolean;
   syncUrl?: boolean;
 }
+
+const catName = (slug: string) =>
+  categories.find((c) => c.slug === slug)?.name ?? slug;
+const roomName = (slug: string) =>
+  ROOM_OPTIONS.find((r) => r.value === slug)?.label ?? slug;
 
 export function CatalogView({
   products,
@@ -47,9 +55,7 @@ export function CatalogView({
 
   const effectiveState = useMemo<CatalogFilterState>(
     () =>
-      lockedCategory
-        ? { ...state, categories: [lockedCategory] }
-        : state,
+      lockedCategory ? { ...state, categories: [lockedCategory] } : state,
     [state, lockedCategory],
   );
 
@@ -58,7 +64,8 @@ export function CatalogView({
       filterAndSort(
         products,
         {
-          category: lockedCategory,
+          categories: effectiveState.categories,
+          rooms: effectiveState.rooms,
           minPrice: effectiveState.priceMin,
           maxPrice: effectiveState.priceMax,
           colors: effectiveState.colors,
@@ -67,18 +74,12 @@ export function CatalogView({
           availability: effectiveState.availability,
           onSaleOnly: effectiveState.onSaleOnly,
           search: effectiveState.search,
-          // categorias múltiplas: aplicadas fora do helper
         },
         effectiveState.sort,
-      ).filter((p) =>
-        lockedCategory || effectiveState.categories.length === 0
-          ? true
-          : effectiveState.categories.includes(p.category),
       ),
-    [products, effectiveState, lockedCategory],
+    [products, effectiveState],
   );
 
-  // Reseta a paginação e sincroniza a URL quando os filtros mudam.
   useEffect(() => {
     if (firstRun.current) {
       firstRun.current = false;
@@ -95,21 +96,23 @@ export function CatalogView({
   function update(patch: Partial<CatalogFilterState>) {
     setState((s) => ({ ...s, ...patch }));
   }
+  const clearAll = () =>
+    setState({ ...EMPTY_CATALOG_STATE, sort: state.sort });
 
   const activeCount = countActiveFilters(effectiveState);
   const shown = results.slice(0, visible);
 
   return (
-    <div className="grid gap-8 lg:grid-cols-[260px_1fr]">
+    <div className="grid gap-8 lg:grid-cols-[264px_1fr]">
       {/* Sidebar desktop */}
       <aside className="hidden lg:block">
-        <div className="sticky top-28">
-          <div className="mb-2 flex items-center justify-between">
+        <div className="sticky top-32 rounded-2xl border border-stone-200 bg-white px-5 pb-2 pt-4">
+          <div className="mb-1 flex items-center justify-between">
             <h2 className="font-display text-lg text-stone-900">Filtros</h2>
             {activeCount > 0 && (
               <button
-                onClick={() => setState({ ...EMPTY_CATALOG_STATE, sort: state.sort })}
-                className="text-xs text-stone-500 underline-offset-2 hover:underline"
+                onClick={clearAll}
+                className="text-xs font-medium text-brand underline-offset-2 hover:underline"
               >
                 Limpar ({activeCount})
               </button>
@@ -126,7 +129,7 @@ export function CatalogView({
 
       <div>
         {showSearch && (
-          <div className="mb-4 flex items-center gap-2 rounded-full border border-stone-300 px-4 focus-within:border-stone-900">
+          <div className="mb-4 flex items-center gap-2 rounded-full border border-stone-300 px-4 focus-within:border-brand">
             <SearchIcon className="h-4 w-4 text-stone-400" />
             <input
               value={state.search}
@@ -143,9 +146,9 @@ export function CatalogView({
           </div>
         )}
 
-        <div className="mb-6 flex items-center justify-between gap-3">
+        <div className="mb-5 flex items-center justify-between gap-3">
           <p className="text-sm text-stone-500">
-            {results.length}{" "}
+            <span className="font-medium text-stone-900">{results.length}</span>{" "}
             {results.length === 1 ? "produto" : "produtos"}
           </p>
 
@@ -157,34 +160,45 @@ export function CatalogView({
               <SlidersIcon className="h-4 w-4" />
               Filtros
               {activeCount > 0 && (
-                <span className="flex h-5 min-w-5 items-center justify-center rounded-full bg-stone-900 px-1 text-[11px] text-white">
+                <span className="flex h-5 min-w-5 items-center justify-center rounded-full bg-brand px-1 text-[11px] text-white">
                   {activeCount}
                 </span>
               )}
             </button>
 
-            <Select
-              aria-label="Ordenar por"
-              value={state.sort}
-              onChange={(e) =>
-                update({ sort: e.target.value as CatalogFilterState["sort"] })
-              }
-              containerClassName="w-44"
-              className="h-10 py-2 text-sm"
-            >
-              {SORT_OPTIONS.map((o) => (
-                <option key={o.value} value={o.value}>
-                  {o.label}
-                </option>
-              ))}
-            </Select>
+            <div className="relative">
+              <select
+                aria-label="Ordenar por"
+                value={state.sort}
+                onChange={(e) =>
+                  update({ sort: e.target.value as CatalogFilterState["sort"] })
+                }
+                className="h-10 appearance-none rounded-full border border-stone-300 bg-white pl-4 pr-9 text-sm text-stone-800 outline-none focus:border-brand"
+              >
+                {SORT_OPTIONS.map((o) => (
+                  <option key={o.value} value={o.value}>
+                    {o.label}
+                  </option>
+                ))}
+              </select>
+              <ChevronDown className="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-stone-400" />
+            </div>
           </div>
         </div>
 
-        {/* Chips de filtros ativos */}
         {activeCount > 0 && (
           <div className="mb-5 flex flex-wrap gap-2">
-            <ActiveChips state={effectiveState} onChange={update} lockedCategory={!!lockedCategory} />
+            <ActiveChips
+              state={effectiveState}
+              onChange={update}
+              lockedCategory={!!lockedCategory}
+            />
+            <button
+              onClick={clearAll}
+              className="text-xs font-medium text-stone-500 underline-offset-2 hover:text-stone-900 hover:underline"
+            >
+              limpar tudo
+            </button>
           </div>
         )}
 
@@ -193,10 +207,7 @@ export function CatalogView({
             title="Nenhum produto encontrado"
             description="Ajuste os filtros ou limpe a busca para ver mais opções."
             action={
-              <Button
-                variant="outline"
-                onClick={() => setState({ ...EMPTY_CATALOG_STATE })}
-              >
+              <Button variant="outline" onClick={clearAll}>
                 Limpar filtros
               </Button>
             }
@@ -209,10 +220,7 @@ export function CatalogView({
                 <p className="text-xs text-stone-400">
                   Exibindo {shown.length} de {results.length}
                 </p>
-                <Button
-                  variant="outline"
-                  onClick={() => setVisible((v) => v + PAGE_SIZE)}
-                >
+                <Button variant="outline" onClick={() => setVisible((v) => v + PAGE_SIZE)}>
                   Carregar mais
                 </Button>
               </div>
@@ -221,7 +229,6 @@ export function CatalogView({
         )}
       </div>
 
-      {/* Drawer mobile */}
       <Drawer
         open={drawerOpen}
         onClose={() => setDrawerOpen(false)}
@@ -230,11 +237,7 @@ export function CatalogView({
         widthClass="w-[88%] max-w-sm"
         footer={
           <div className="flex gap-3">
-            <Button
-              variant="outline"
-              fullWidth
-              onClick={() => setState({ ...EMPTY_CATALOG_STATE, sort: state.sort })}
-            >
+            <Button variant="outline" fullWidth onClick={clearAll}>
               Limpar
             </Button>
             <Button fullWidth onClick={() => setDrawerOpen(false)}>
@@ -279,15 +282,21 @@ function ActiveChips({
   if (!lockedCategory)
     state.categories.forEach((c) =>
       chips.push({
-        label: c,
+        label: catName(c),
         clear: () => onChange({ categories: state.categories.filter((x) => x !== c) }),
       }),
     );
 
-  state.environments.forEach((e) =>
+  state.rooms.forEach((r) =>
     chips.push({
-      label: e,
-      clear: () => onChange({ environments: state.environments.filter((x) => x !== e) }),
+      label: roomName(r),
+      clear: () => onChange({ rooms: state.rooms.filter((x) => x !== r) }),
+    }),
+  );
+  state.styles.forEach((st) =>
+    chips.push({
+      label: STYLE_OPTIONS.find((o) => o.value === st)?.label ?? st,
+      clear: () => onChange({ styles: state.styles.filter((x) => x !== st) }),
     }),
   );
   state.colors.forEach((c) =>
@@ -302,15 +311,14 @@ function ActiveChips({
       clear: () => onChange({ materials: state.materials.filter((x) => x !== m) }),
     }),
   );
-  state.styles.forEach((st) =>
-    chips.push({
-      label: STYLE_OPTIONS.find((o) => o.value === st)?.label ?? st,
-      clear: () => onChange({ styles: state.styles.filter((x) => x !== st) }),
-    }),
-  );
   state.availability.forEach((a) =>
     chips.push({
-      label: a === "in_stock" ? "Pronta entrega" : a === "low_stock" ? "Últimas unidades" : "Esgotado",
+      label:
+        a === "in_stock"
+          ? "Pronta entrega"
+          : a === "low_stock"
+            ? "Últimas unidades"
+            : "Esgotado",
       clear: () => onChange({ availability: state.availability.filter((x) => x !== a) }),
     }),
   );
@@ -322,8 +330,8 @@ function ActiveChips({
           key={`${chip.label}-${i}`}
           onClick={chip.clear}
           className={cn(
-            "inline-flex items-center gap-1.5 rounded-full bg-stone-100 px-3 py-1.5 text-xs font-medium text-stone-700",
-            "transition-colors hover:bg-stone-200",
+            "inline-flex items-center gap-1.5 rounded-full bg-brand/10 px-3 py-1.5 text-xs font-medium text-brand-dark",
+            "transition-colors hover:bg-brand/20",
           )}
         >
           {chip.label}

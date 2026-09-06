@@ -1,26 +1,35 @@
 /**
- * Entidades de catálogo.
+ * Entidades de catálogo — "fonte da verdade" do domínio no front-end.
  *
- * Estes tipos são a "fonte da verdade" do domínio no front-end. Quando o
- * Supabase entrar, as tabelas `products` / `product_images` / `product_variants`
- * devem ser mapeadas para estes mesmos formatos dentro de `services/products.ts`,
- * de modo que os componentes nunca precisem mudar.
+ * O formato foi pensado para mapear 1:1 com as futuras tabelas do Supabase:
+ *   products          -> Product
+ *   product_images    -> ProductImage
+ *   product_variants  -> ProductVariant       (variação de COR, com imagens próprias)
+ *   (json em products)-> ProductOptionGroup   (tamanho, tecido, acabamento…)
+ *   categories        -> ProductCategory
+ *   (json/tabela)     -> ProductRoom           (ambiente)
+ *
+ * Quando o Supabase entrar, basta o `services/products.ts` montar estes objetos
+ * a partir das linhas do banco — nenhum componente precisa mudar.
  */
 
 export type CategorySlug =
-  | "sala"
-  | "quarto"
-  | "cozinha"
+  | "sofas"
+  | "poltronas"
+  | "mesas"
+  | "cadeiras"
+  | "camas"
+  | "guarda-roupas"
+  | "racks-paineis"
   | "escritorio"
   | "decoracao";
 
-export type EnvironmentSlug =
-  | "sala"
+export type RoomSlug =
+  | "sala-de-estar"
+  | "sala-de-jantar"
   | "quarto"
-  | "cozinha"
   | "escritorio"
-  | "varanda"
-  | "home-office";
+  | "area-externa";
 
 export type Availability = "in_stock" | "low_stock" | "out_of_stock";
 
@@ -33,18 +42,48 @@ export type FurnitureStyle =
   | "rustico";
 
 export interface ProductDimensions {
-  /** Largura em centímetros */
+  /** cm */
   width: number;
-  /** Altura em centímetros */
+  /** cm */
   height: number;
-  /** Profundidade em centímetros */
+  /** cm */
   depth: number;
 }
 
-export interface ProductVariantOption {
-  /** Ex.: "Cor", "Tamanho", "Acabamento" */
+/** Uma foto do produto. `color` liga a foto a uma variação de cor. */
+export interface ProductImage {
+  id: string;
+  url: string;
+  alt?: string;
+  /** Nome da cor a que esta imagem pertence (opcional) */
+  color?: string;
+  position: number;
+}
+
+/**
+ * Variação de COR — cada cor pode ter estoque, ajuste de preço e imagens próprias.
+ * A galeria da página de produto acompanha a variação selecionada.
+ */
+export interface ProductVariant {
+  id: string;
+  color: string;
+  /** Hex para o swatch (ex.: "#8a8f99") */
+  colorHex: string;
+  material?: string;
+  stock: number;
+  /** Imagens específicas desta cor (se vazio, usa as imagens base) */
+  images: string[];
+  /** Ajuste sobre o preço base, em reais (pode ser 0 ou negativo) */
+  priceAdjustment: number;
+}
+
+/**
+ * Grupo de opção NÃO relacionada a cor (tamanho, tecido, acabamento, nº de portas).
+ * Só valores — não altera imagem nem, por ora, preço.
+ */
+export interface ProductOptionGroup {
+  /** Ex.: "Tamanho", "Tecido", "Acabamento" */
   name: string;
-  /** Valores possíveis, ex.: ["Bege", "Cinza", "Verde"] */
   values: string[];
 }
 
@@ -55,32 +94,50 @@ export interface Product {
   sku: string;
   description: string;
   category: CategorySlug;
-  /** Preço "de" (cheio), sempre em reais */
+  room?: RoomSlug;
+  style?: FurnitureStyle;
+
+  /** Preço "de" (cheio) */
   price: number;
-  /** Preço "por" (promocional). Ausente quando não há desconto. */
+  /** Preço "por" (promocional) — ausente quando não há desconto */
   salePrice?: number;
+
+  /** Galeria base (usada quando não há variação de cor selecionada) */
   images: string[];
   stock: number;
+
   featured: boolean;
   bestSeller?: boolean;
   new?: boolean;
+
   material?: string;
+  /** Lista simples de nomes de cor (deriva de `variants` quando houver) */
   colors?: string[];
-  environment?: EnvironmentSlug;
-  style?: FurnitureStyle;
   dimensions?: ProductDimensions;
 
-  /* Campos extras usados pela página de produto (mockados por enquanto) */
+  /** Variações de cor com imagens próprias */
+  variants?: ProductVariant[];
+  /** Outras opções (tamanho, tecido…) */
+  options?: ProductOptionGroup[];
+
   weightKg?: number;
   warranty?: string;
   assembly?: string;
-  variants?: ProductVariantOption[];
   rating?: number;
   reviewsCount?: number;
 }
 
-export interface Category {
+export interface ProductCategory {
   slug: CategorySlug;
+  name: string;
+  description: string;
+  image: string;
+  /** Para o menu / ordenação */
+  position?: number;
+}
+
+export interface ProductRoom {
+  slug: RoomSlug;
   name: string;
   description: string;
   image: string;
@@ -96,8 +153,8 @@ export type SortOption =
   | "newest";
 
 export interface ProductFilters {
-  category?: CategorySlug;
-  environment?: EnvironmentSlug;
+  categories?: CategorySlug[];
+  rooms?: RoomSlug[];
   minPrice?: number;
   maxPrice?: number;
   colors?: string[];
@@ -121,4 +178,31 @@ export interface Paginated<T> {
   page: number;
   pageSize: number;
   totalPages: number;
+}
+
+/* ---------- Helpers de domínio ---------- */
+
+/** Preço efetivo considerando a variação selecionada. */
+export function variantPrice(
+  product: Product,
+  variant?: ProductVariant,
+): { price: number; salePrice?: number } {
+  const adj = variant?.priceAdjustment ?? 0;
+  return {
+    price: product.price + adj,
+    salePrice:
+      product.salePrice != null ? product.salePrice + adj : undefined,
+  };
+}
+
+/** Imagens efetivas para a galeria: as da variação, senão as base. */
+export function galleryImages(
+  product: Product,
+  variant?: ProductVariant,
+): string[] {
+  if (variant && variant.images.length > 0) {
+    // fotos da cor primeiro + fotos base como contexto (sem duplicar)
+    return [...variant.images, ...product.images.filter((i) => !variant.images.includes(i))];
+  }
+  return product.images;
 }

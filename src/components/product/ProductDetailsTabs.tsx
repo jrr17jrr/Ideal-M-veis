@@ -1,8 +1,13 @@
-import type { Product } from "@/types";
+import type { Product, RoomSlug } from "@/types";
 import { Accordion } from "@/components/ui/Accordion";
 import { getReviewsForProduct } from "@/data/reviews";
+import { getRoomBySlug } from "@/data/rooms";
 import { Rating } from "@/components/ui/Rating";
 import { formatDate } from "@/lib/format";
+
+function roomLabel(slug?: RoomSlug): string | undefined {
+  return slug ? getRoomBySlug(slug)?.name : undefined;
+}
 
 function SpecRow({ label, value }: { label: string; value?: string | number }) {
   if (value == null || value === "") return null;
@@ -56,7 +61,7 @@ export function ProductDetailsTabs({ product }: { product: Product }) {
                 label="Peso"
                 value={product.weightKg ? `${product.weightKg} kg` : undefined}
               />
-              <SpecRow label="Ambiente indicado" value={product.environment} />
+              <SpecRow label="Ambiente indicado" value={roomLabel(product.room)} />
               <SpecRow label="SKU" value={product.sku} />
             </dl>
           ),

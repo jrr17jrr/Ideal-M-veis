@@ -7,7 +7,7 @@ import { Checkbox } from "@/components/ui/Checkbox";
 import { categories } from "@/data/categories";
 import {
   AVAILABILITY_OPTIONS,
-  ENVIRONMENT_OPTIONS,
+  ROOM_OPTIONS,
   PRICE_RANGES,
   STYLE_OPTIONS,
 } from "./filterConfig";
@@ -107,11 +107,11 @@ export function FilterPanel({
       </Group>
 
       <Group title="Ambiente">
-        {ENVIRONMENT_OPTIONS.map((e) => (
+        {ROOM_OPTIONS.map((e) => (
           <Checkbox
             key={e.value}
-            checked={state.environments.includes(e.value)}
-            onChange={() => onChange({ environments: toggle(state.environments, e.value) })}
+            checked={state.rooms.includes(e.value)}
+            onChange={() => onChange({ rooms: toggle(state.rooms, e.value) })}
             label={e.label}
           />
         ))}

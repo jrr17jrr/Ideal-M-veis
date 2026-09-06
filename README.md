@@ -83,8 +83,11 @@ src/
 │   └── orders.ts               # listOrders / getOrder / buildLocalOrder
 │
 ├── data/                       # Dados MOCKADOS (não usar direto nos componentes!)
-│   ├── products.ts             # 31 produtos fictícios
-│   ├── categories.ts  reviews.ts  orders.ts  user.ts  shipping.ts
+│   ├── products.ts             # 33 produtos — category (tipo do móvel), room
+│   │                           #   (ambiente), variants (cor + imagens) e options
+│   ├── categories.ts           # 9 categorias por tipo de móvel (ProductCategory)
+│   ├── rooms.ts                # 5 ambientes (ProductRoom)
+│   ├── reviews.ts  orders.ts  user.ts  shipping.ts
 │
 ├── lib/
 │   ├── catalog.ts              # filtro/ordenação/busca (puro, sem React)
@@ -173,7 +176,7 @@ public/images/
 ├── hero/          # foto grande da home
 ├── banners/       # banners promocionais
 ├── rooms/         # "compre por ambiente"
-├── categories/    # "compre por categoria" + cards de categoria do catálogo
+├── categories/    # cards "compre por categoria" (1 por tipo de móvel)
 └── products/      # 2 fotos por produto: <slug>.jpg e <slug>-2.jpg
 ```
 
@@ -218,6 +221,31 @@ public/images/hero/hero-poster.jpg  # poster / fallback
 Fontes atuais: **Fraunces** (títulos) + **Inter** (texto), via `next/font`.
 
 ---
+
+## Variações de produto
+
+Tipos em `src/types/product.ts` (prontos para o Supabase):
+
+| Tipo | Papel |
+| --- | --- |
+| `ProductImage` | uma foto (com `color` opcional, ligando a foto a uma cor) |
+| `ProductVariant` | variação de **cor** — `colorHex`, `stock`, `images[]`, `priceAdjustment` |
+| `ProductOptionGroup` | outras opções sem imagem: tamanho, tecido, acabamento, nº de portas |
+| `ProductCategory` / `ProductRoom` | categoria (tipo do móvel) e ambiente |
+
+Na página de produto: os swatches de cor trocam a galeria (`galleryImages()`),
+os grupos de opção viram botões, e a variação escolhida (`{ variant, options }`)
+vai junto para o carrinho (`CartItem` guarda `color` + `colorHex` + `options`;
+a linha do carrinho é identificada por `cartLineKey`). Produtos com cor/opção
+obrigatória abrem a página em vez de "adicionar rápido".
+
+## Bibliotecas
+
+- **`embla-carousel-react`** — trilhos de produtos (mais vendidos, ofertas,
+  lançamentos, relacionados). Swipe no mobile, drag no desktop, setas discretas,
+  sem autoplay. É a única lib de carrossel — não usar Swiper/Keen junto.
+- Ícones são um conjunto próprio em `src/components/ui/icons.tsx` (estilo Lucide,
+  zero dependências). Sem lib de animação (as transições são CSS).
 
 ## Notas técnicas
 

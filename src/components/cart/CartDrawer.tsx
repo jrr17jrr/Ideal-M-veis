@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/Button";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { BagIcon } from "@/components/ui/icons";
 import { useCart } from "@/context/CartContext";
+import { cartLineKey } from "@/types";
 import { formatCurrency, formatInstallment } from "@/lib/format";
 import { FREE_SHIPPING_THRESHOLD } from "@/data/shipping";
 import { CartLineItem } from "./CartLineItem";
@@ -83,7 +84,7 @@ export function CartDrawer() {
 
           <ul className="divide-y divide-stone-100">
             {items.map((item) => (
-              <li key={`${item.productId}-${JSON.stringify(item.options ?? {})}`}>
+              <li key={cartLineKey(item.productId, item.color, item.options)}>
                 <CartLineItem item={item} compact onNavigate={closeDrawer} />
               </li>
             ))}

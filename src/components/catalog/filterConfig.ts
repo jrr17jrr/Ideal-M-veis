@@ -1,4 +1,9 @@
-import type { Availability, FurnitureStyle, SortOption } from "@/types";
+import type {
+  Availability,
+  FurnitureStyle,
+  RoomSlug,
+  SortOption,
+} from "@/types";
 
 export const SORT_OPTIONS: { value: SortOption; label: string }[] = [
   { value: "relevance", label: "Mais relevantes" },
@@ -14,13 +19,12 @@ export const AVAILABILITY_OPTIONS: { value: Availability; label: string }[] = [
   { value: "out_of_stock", label: "Esgotado" },
 ];
 
-export const ENVIRONMENT_OPTIONS: { value: string; label: string }[] = [
-  { value: "sala", label: "Sala" },
+export const ROOM_OPTIONS: { value: RoomSlug; label: string }[] = [
+  { value: "sala-de-estar", label: "Sala de estar" },
+  { value: "sala-de-jantar", label: "Sala de jantar" },
   { value: "quarto", label: "Quarto" },
-  { value: "cozinha", label: "Cozinha e Jantar" },
   { value: "escritorio", label: "Escritório" },
-  { value: "home-office", label: "Home office" },
-  { value: "varanda", label: "Área externa" },
+  { value: "area-externa", label: "Área externa" },
 ];
 
 export const STYLE_OPTIONS: { value: FurnitureStyle; label: string }[] = [
@@ -33,8 +37,9 @@ export const STYLE_OPTIONS: { value: FurnitureStyle; label: string }[] = [
 ];
 
 export const PRICE_RANGES: { label: string; min?: number; max?: number }[] = [
-  { label: "Até R$ 1.000", max: 1000 },
-  { label: "R$ 1.000 a R$ 2.500", min: 1000, max: 2500 },
-  { label: "R$ 2.500 a R$ 4.000", min: 2500, max: 4000 },
-  { label: "Acima de R$ 4.000", min: 4000 },
+  { label: "Até R$ 500", max: 500 },
+  { label: "R$ 500 a R$ 1.000", min: 500, max: 1000 },
+  { label: "R$ 1.000 a R$ 2.000", min: 1000, max: 2000 },
+  { label: "R$ 2.000 a R$ 5.000", min: 2000, max: 5000 },
+  { label: "Acima de R$ 5.000", min: 5000 },
 ];

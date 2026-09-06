@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useCart } from "@/context/CartContext";
+import { cartLineKey } from "@/types";
 import { Button } from "@/components/ui/Button";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { BagIcon, ShieldIcon } from "@/components/ui/icons";
@@ -53,7 +54,7 @@ export function CartPageContent() {
 
         <ul className="mt-2 divide-y divide-stone-200 border-y border-stone-200">
           {items.map((item) => (
-            <li key={`${item.productId}-${JSON.stringify(item.options ?? {})}`}>
+            <li key={cartLineKey(item.productId, item.color, item.options)}>
               <CartLineItem item={item} />
             </li>
           ))}

@@ -3,8 +3,7 @@ import { notFound } from "next/navigation";
 import { Container } from "@/components/ui/Container";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { SectionHeader } from "@/components/ui/SectionHeader";
-import { ProductGallery } from "@/components/product/ProductGallery";
-import { ProductPurchase } from "@/components/product/ProductPurchase";
+import { ProductDetail } from "@/components/product/ProductDetail";
 import { ProductDetailsTabs } from "@/components/product/ProductDetailsTabs";
 import { ProductCarousel } from "@/components/product/ProductCarousel";
 import {
@@ -112,9 +111,8 @@ export default async function ProdutoPage({
         ]}
       />
 
-      <div className="mt-6 grid gap-8 lg:grid-cols-[1.15fr_1fr] lg:gap-14">
-        <ProductGallery images={product.images} alt={product.name} />
-        <ProductPurchase product={product} />
+      <div className="mt-6">
+        <ProductDetail product={product} />
       </div>
 
       <section className="mx-auto mt-14 max-w-3xl">

@@ -14,7 +14,7 @@ import {
   ALL_MATERIALS,
 } from "@/data/products";
 import { filterAndSort, effectivePrice, matchesText } from "@/lib/catalog";
-import type { Paginated, Product, ProductQuery } from "@/types";
+import type { CategorySlug, Paginated, Product, ProductQuery } from "@/types";
 
 const DEFAULT_PAGE_SIZE = 9;
 
@@ -81,21 +81,47 @@ export async function getRelatedProducts(
   product: Product,
   limit = 4,
 ): Promise<Product[]> {
+  // Mesma categoria; empata pelo mesmo ambiente e melhor avaliação.
   return ALL_PRODUCTS.filter(
     (p) => p.id !== product.id && p.category === product.category,
-  ).slice(0, limit);
+  )
+    .sort(
+      (a, b) =>
+        Number(b.room === product.room) - Number(a.room === product.room) ||
+        (b.rating ?? 0) - (a.rating ?? 0),
+    )
+    .slice(0, limit);
 }
+
+/** "Você também pode gostar": categorias que combinam com a atual. */
+const COMPLEMENTARY: Partial<Record<CategorySlug, CategorySlug[]>> = {
+  sofas: ["poltronas", "mesas", "racks-paineis", "decoracao"],
+  poltronas: ["sofas", "decoracao", "mesas"],
+  mesas: ["cadeiras", "racks-paineis", "decoracao"],
+  cadeiras: ["mesas", "racks-paineis"],
+  camas: ["guarda-roupas", "decoracao"],
+  "guarda-roupas": ["camas", "decoracao"],
+  "racks-paineis": ["sofas", "decoracao", "mesas"],
+  escritorio: ["racks-paineis", "decoracao"],
+  decoracao: ["sofas", "mesas", "poltronas"],
+};
 
 export async function getRecommendedProducts(
   product: Product,
   limit = 4,
 ): Promise<Product[]> {
-  const sameCategory = new Set(
-    ALL_PRODUCTS.filter((p) => p.category === product.category).map((p) => p.id),
-  );
+  const wanted = COMPLEMENTARY[product.category] ?? [];
+  const rank = new Map(wanted.map((c, i) => [c, i]));
   return ALL_PRODUCTS.filter(
-    (p) => p.id !== product.id && !sameCategory.has(p.id) && p.featured,
-  ).slice(0, limit);
+    (p) => p.id !== product.id && rank.has(p.category),
+  )
+    .sort(
+      (a, b) =>
+        (rank.get(a.category) ?? 9) - (rank.get(b.category) ?? 9) ||
+        Number(b.featured) - Number(a.featured) ||
+        (b.rating ?? 0) - (a.rating ?? 0),
+    )
+    .slice(0, limit);
 }
 
 export async function getProductsByIds(ids: string[]): Promise<Product[]> {

@@ -2,13 +2,14 @@ import type {
   Availability,
   CategorySlug,
   FurnitureStyle,
+  RoomSlug,
   SortOption,
 } from "@/types";
 
 export interface CatalogFilterState {
   sort: SortOption;
   categories: CategorySlug[];
-  environments: string[];
+  rooms: RoomSlug[];
   colors: string[];
   materials: string[];
   styles: FurnitureStyle[];
@@ -22,7 +23,7 @@ export interface CatalogFilterState {
 export const EMPTY_CATALOG_STATE: CatalogFilterState = {
   sort: "relevance",
   categories: [],
-  environments: [],
+  rooms: [],
   colors: [],
   materials: [],
   styles: [],
@@ -36,7 +37,7 @@ export const EMPTY_CATALOG_STATE: CatalogFilterState = {
 export function countActiveFilters(s: CatalogFilterState): number {
   return (
     s.categories.length +
-    s.environments.length +
+    s.rooms.length +
     s.colors.length +
     s.materials.length +
     s.styles.length +

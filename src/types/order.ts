@@ -41,6 +41,7 @@ export interface OrderItem {
   image: string;
   unitPrice: number;
   quantity: number;
+  color?: string;
   options?: Record<string, string>;
 }
 

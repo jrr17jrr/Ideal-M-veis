@@ -35,15 +35,20 @@ const MANIFEST = {
   "banners/ofertas.jpg": px(34277650, ...WIDE),
 
   "rooms/sala.jpg": px(34688219, ...TILE),
+  "rooms/jantar.jpg": px(14598479, ...TILE),
   "rooms/quarto.jpg": px(8082562, ...TILE),
   "rooms/cozinha.jpg": px(6310320, ...TILE),
   "rooms/escritorio.jpg": px(10922370, ...TILE),
+  "rooms/varanda.jpg": px(3063047, ...TILE),
   "rooms/decoracao.jpg": px(34438566, ...TILE),
 
   /* ---------------- Cards "compre por categoria" ---------------- */
   "categories/sofas.jpg": px(276746, ...TILE),
+  "categories/poltronas.jpg": px(33646085, ...TILE),
   "categories/mesas.jpg": px(2995012, ...TILE),
   "categories/cadeiras.jpg": px(30650069, ...TILE),
+  "categories/camas.jpg": px(19980080, ...TILE),
+  "categories/guarda-roupas.jpg": px(3315286, ...TILE),
   "categories/racks-paineis.jpg": px(1714433, ...TILE),
   "categories/quartos.jpg": px(6903157, ...TILE),
   "categories/escritorio.jpg": px(22711217, ...TILE),
@@ -70,8 +75,8 @@ const MANIFEST = {
   "products/poltrona-giratoria-pod-couro-sintetico-2.jpg": px(33646085, ...SQ),
   "products/rack-munique-tv-65.jpg": px(5710708, ...SQ),
   "products/rack-munique-tv-65-2.jpg": px(5755711, ...SQ),
-  "products/painel-ripado-berlim-220.jpg": px(6580372, ...SQ),
-  "products/painel-ripado-berlim-220-2.jpg": px(7147296, ...SQ),
+  "products/painel-ripado-berlim-220.jpg": px(6636320, ...SQ),
+  "products/painel-ripado-berlim-220-2.jpg": px(6580372, ...SQ),
   "products/estante-bauhaus-5-prateleiras.jpg": px(32471851, ...SQ),
   "products/estante-bauhaus-5-prateleiras-2.jpg": px(1565245, ...SQ),
   "products/aparador-vienna-palhinha.jpg": px(6480207, ...SQ),
@@ -104,8 +109,8 @@ const MANIFEST = {
   "products/cabeceira-estofada-veludo-casal-2.jpg": px(7511702, ...SQ),
   "products/par-criados-mudos-nordico-2-gavetas.jpg": px(9819647, ...SQ),
   "products/par-criados-mudos-nordico-2-gavetas-2.jpg": px(2082095, ...SQ),
-  "products/comoda-retro-4-gavetas.jpg": px(17271982, ...SQ),
-  "products/comoda-retro-4-gavetas-2.jpg": px(14172822, ...SQ),
+  "products/comoda-retro-4-gavetas.jpg": px(11643074, ...SQ),
+  "products/comoda-retro-4-gavetas-2.jpg": px(17271982, ...SQ),
 
   // Escritório
   "products/escrivaninha-home-office-nova.jpg": px(36123565, ...SQ),
@@ -118,8 +123,8 @@ const MANIFEST = {
   // Decoração
   "products/luminaria-piso-arco.jpg": px(11850174, ...SQ),
   "products/luminaria-piso-arco-2.jpg": px(6078545, ...SQ),
-  "products/espelho-redondo-sol-80.jpg": px(8218186, ...SQ),
-  "products/espelho-redondo-sol-80-2.jpg": px(15269290, ...SQ),
+  "products/espelho-redondo-sol-80.jpg": px(15269290, ...SQ),
+  "products/espelho-redondo-sol-80-2.jpg": px(8218186, ...SQ),
   "products/tapete-berbere-geometrico-200x250.jpg": px(6835168, ...SQ),
   "products/tapete-berbere-geometrico-200x250-2.jpg": px(18038065, ...SQ),
   "products/jogo-almofadas-decorativas.jpg": px(1239221, ...SQ),
@@ -128,6 +133,18 @@ const MANIFEST = {
   "products/trio-vasos-ceramicos-fosco-2.jpg": px(6969835, ...SQ),
   "products/kit-3-quadros-decorativos-moldura.jpg": px(32106611, ...SQ),
   "products/kit-3-quadros-decorativos-moldura-2.jpg": px(707580, ...SQ),
+
+  // Área externa
+  "products/conjunto-varanda-firenze-4-lugares.jpg": px(8041135, ...SQ),
+  "products/conjunto-varanda-firenze-4-lugares-2.jpg": px(12715508, ...SQ),
+  "products/espreguicadeira-deck-malibu.jpg": px(2771923, ...SQ),
+  "products/espreguicadeira-deck-malibu-2.jpg": px(2961945, ...SQ),
+
+  /* ---- Fotos por variação de cor (galeria acompanha a cor escolhida) ---- */
+  "products/variants/sofa-copenhague-cinza.jpg": px(1239298, ...SQ),
+  "products/variants/sofa-copenhague-grafite.jpg": px(6970049, ...SQ),
+  "products/variants/sofa-oslo-verde-musgo.jpg": px(4846097, ...SQ),
+  "products/variants/poltrona-nordica-mostarda.jpg": px(14100420, ...SQ),
 
   /* Poster do vídeo do hero (frame extraído do próprio vídeo Mixkit 3090) */
   "hero/hero-poster.jpg": "https://assets.mixkit.co/videos/3090/3090-thumb-720-0.jpg",

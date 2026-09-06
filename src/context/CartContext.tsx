@@ -9,8 +9,8 @@ import {
   useState,
 } from "react";
 import { STORAGE_KEYS } from "@/lib/constants";
-import type { CartItem, CartTotals, Product } from "@/types";
-import { createCartItem } from "@/types";
+import type { CartItem, CartSelection, CartTotals, Product } from "@/types";
+import { createCartItem, cartLineKey } from "@/types";
 
 interface CartContextValue {
   items: CartItem[];
@@ -22,30 +22,20 @@ interface CartContextValue {
   addItem: (
     product: Product,
     quantity?: number,
-    options?: Record<string, string>,
+    selection?: CartSelection,
   ) => void;
-  removeItem: (productId: string, options?: Record<string, string>) => void;
+  removeItem: (item: Pick<CartItem, "productId" | "color" | "options">) => void;
   updateQuantity: (
-    productId: string,
+    item: Pick<CartItem, "productId" | "color" | "options">,
     quantity: number,
-    options?: Record<string, string>,
   ) => void;
   clear: () => void;
 }
 
 const CartContext = createContext<CartContextValue | null>(null);
 
-/** Duas linhas do carrinho são "a mesma" se produto + variação forem iguais. */
-function sameLine(
-  a: Pick<CartItem, "productId" | "options">,
-  productId: string,
-  options?: Record<string, string>,
-): boolean {
-  return (
-    a.productId === productId &&
-    JSON.stringify(a.options ?? {}) === JSON.stringify(options ?? {})
-  );
-}
+const keyOf = (i: Pick<CartItem, "productId" | "color" | "options">) =>
+  cartLineKey(i.productId, i.color, i.options);
 
 function computeTotals(items: CartItem[]): CartTotals {
   return items.reduce<CartTotals>(
@@ -65,7 +55,6 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   const [hydrated, setHydrated] = useState(false);
   const [isDrawerOpen, setDrawerOpen] = useState(false);
 
-  // Hidrata do localStorage no client.
   useEffect(() => {
     try {
       const raw = localStorage.getItem(STORAGE_KEYS.cart);
@@ -76,7 +65,6 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     setHydrated(true);
   }, []);
 
-  // Persiste toda mudança (após hidratar).
   useEffect(() => {
     if (!hydrated) return;
     try {
@@ -86,7 +74,6 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     }
   }, [items, hydrated]);
 
-  // Sincroniza entre abas.
   useEffect(() => {
     function onStorage(e: StorageEvent) {
       if (e.key === STORAGE_KEYS.cart && e.newValue) {
@@ -102,9 +89,11 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   const addItem = useCallback<CartContextValue["addItem"]>(
-    (product, quantity = 1, options) => {
+    (product, quantity = 1, selection = {}) => {
+      const line = createCartItem(product, quantity, selection);
+      const key = keyOf(line);
       setItems((list) => {
-        const idx = list.findIndex((i) => sameLine(i, product.id, options));
+        const idx = list.findIndex((i) => keyOf(i) === key);
         if (idx >= 0) {
           const next = [...list];
           next[idx] = {
@@ -113,31 +102,24 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
           };
           return next;
         }
-        return [...list, createCartItem(product, quantity, options)];
+        return [...list, line];
       });
     },
     [],
   );
 
-  const removeItem = useCallback<CartContextValue["removeItem"]>(
-    (productId, options) => {
-      setItems((list) =>
-        list.filter((i) => !sameLine(i, productId, options)),
-      );
-    },
-    [],
-  );
+  const removeItem = useCallback<CartContextValue["removeItem"]>((item) => {
+    const key = keyOf(item);
+    setItems((list) => list.filter((i) => keyOf(i) !== key));
+  }, []);
 
   const updateQuantity = useCallback<CartContextValue["updateQuantity"]>(
-    (productId, quantity, options) => {
+    (item, quantity) => {
+      const key = keyOf(item);
       setItems((list) => {
-        if (quantity <= 0) {
-          return list.filter((i) => !sameLine(i, productId, options));
-        }
+        if (quantity <= 0) return list.filter((i) => keyOf(i) !== key);
         return list.map((i) =>
-          sameLine(i, productId, options)
-            ? { ...i, quantity: Math.min(99, quantity) }
-            : i,
+          keyOf(i) === key ? { ...i, quantity: Math.min(99, quantity) } : i,
         );
       });
     },

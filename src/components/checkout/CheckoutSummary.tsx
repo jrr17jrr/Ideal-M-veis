@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useCart } from "@/context/CartContext";
+import { cartLineKey } from "@/types";
 import { formatCurrency } from "@/lib/format";
 import { CartSummary } from "@/components/cart/CartSummary";
 
@@ -19,7 +20,7 @@ export function CheckoutSummary({
       <ul className="mt-4 space-y-3">
         {items.map((item) => (
           <li
-            key={`${item.productId}-${JSON.stringify(item.options ?? {})}`}
+            key={cartLineKey(item.productId, item.color, item.options)}
             className="flex gap-3"
           >
             <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-lg bg-stone-100">
@@ -32,9 +33,14 @@ export function CheckoutSummary({
               <p className="line-clamp-2 text-xs font-medium text-stone-900">
                 {item.name}
               </p>
-              {item.options && (
+              {(item.color || item.options) && (
                 <p className="text-[11px] text-stone-500">
-                  {Object.values(item.options).join(" · ")}
+                  {[
+                    item.color,
+                    ...(item.options ? Object.values(item.options) : []),
+                  ]
+                    .filter(Boolean)
+                    .join(" · ")}
                 </p>
               )}
             </div>

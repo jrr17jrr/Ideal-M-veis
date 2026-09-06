@@ -10,10 +10,14 @@ import {
   formatInstallment,
   pixPrice,
 } from "@/lib/format";
+import { categories } from "@/data/categories";
 import { Badge } from "@/components/ui/Badge";
 import { FavoriteButton } from "./FavoriteButton";
 import { useCart } from "@/context/CartContext";
 import { useToast } from "@/context/ToastContext";
+
+const catName = (slug: string) =>
+  categories.find((c) => c.slug === slug)?.name ?? slug;
 
 export function ProductCard({
   product,
@@ -29,11 +33,14 @@ export function ProductCard({
   const percent = discountPercent(product.price, product.salePrice);
   const current = product.salePrice ?? product.price;
   const outOfStock = product.stock <= 0;
-  const hasVariants = (product.variants?.length ?? 0) > 0;
+  const needsChoice =
+    (product.variants?.length ?? 0) > 0 || (product.options?.length ?? 0) > 0;
+  const swatches = product.variants ?? [];
 
   function quickAdd(e: React.MouseEvent) {
+    // Com cor/opção obrigatória, deixa o clique seguir para a página do produto.
+    if (needsChoice || outOfStock) return;
     e.preventDefault();
-    if (outOfStock) return;
     addItem(product, 1);
     toast.success(`${product.name} adicionado à sacola`);
     openDrawer();
@@ -42,15 +49,15 @@ export function ProductCard({
   return (
     <article className="group relative flex flex-col">
       <Link href={href} className="flex flex-col gap-3">
-        <div className="relative aspect-square overflow-hidden rounded-xl bg-stone-100">
+        <div className="relative aspect-square overflow-hidden rounded-2xl bg-stone-100 ring-1 ring-black/5">
           <Image
             src={product.images[0]}
             alt={product.name}
             fill
-            sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 300px"
+            sizes="(max-width: 640px) 62vw, (max-width: 1024px) 33vw, 300px"
             priority={priority}
             className={cn(
-              "object-cover transition-transform duration-500 ease-out group-hover:scale-[1.04]",
+              "object-cover transition-transform duration-500 ease-out group-hover:scale-[1.05]",
               outOfStock && "opacity-60",
             )}
           />
@@ -59,7 +66,7 @@ export function ProductCard({
               src={product.images[1]}
               alt=""
               fill
-              sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 300px"
+              sizes="(max-width: 640px) 62vw, (max-width: 1024px) 33vw, 300px"
               className="object-cover opacity-0 transition-opacity duration-500 group-hover:opacity-100"
             />
           )}
@@ -81,20 +88,39 @@ export function ProductCard({
             <button
               type="button"
               onClick={quickAdd}
-              className="absolute inset-x-3 bottom-3 hidden translate-y-2 rounded-full bg-stone-900 py-2.5 text-xs font-medium tracking-wide text-white opacity-0 transition-all duration-300 hover:bg-stone-800 group-hover:translate-y-0 group-hover:opacity-100 lg:block"
+              className="absolute inset-x-3 bottom-3 hidden translate-y-2 rounded-full bg-stone-900 py-2.5 text-xs font-semibold uppercase tracking-wide text-white opacity-0 transition-all duration-300 hover:bg-stone-800 group-hover:translate-y-0 group-hover:opacity-100 lg:block"
             >
-              {hasVariants ? "Escolher opções" : "Adicionar à sacola"}
+              {needsChoice ? "Escolher opções" : "Adicionar à sacola"}
             </button>
           )}
         </div>
 
         <div className="flex flex-col gap-1">
           <p className="text-[11px] font-medium uppercase tracking-widest text-stone-400">
-            {product.category}
+            {catName(product.category)}
           </p>
           <h3 className="line-clamp-2 text-sm font-medium leading-snug text-stone-900">
             {product.name}
           </h3>
+
+          {swatches.length > 0 && (
+            <div className="mt-0.5 flex items-center gap-1">
+              {swatches.slice(0, 4).map((v) => (
+                <span
+                  key={v.id}
+                  title={v.color}
+                  className="inline-block h-3 w-3 rounded-full ring-1 ring-black/15"
+                  style={{ backgroundColor: v.colorHex }}
+                />
+              ))}
+              {swatches.length > 4 && (
+                <span className="text-[11px] text-stone-400">
+                  +{swatches.length - 4}
+                </span>
+              )}
+            </div>
+          )}
+
           <div className="mt-1.5">
             {product.salePrice != null && (
               <span className="text-xs text-stone-400 line-through">
@@ -111,15 +137,6 @@ export function ProductCard({
           </p>
         </div>
       </Link>
-
-      {hasVariants && !outOfStock && (
-        <Link
-          href={href}
-          className="mt-2 text-xs font-medium text-brand underline-offset-4 hover:underline lg:hidden"
-        >
-          Ver opções
-        </Link>
-      )}
     </article>
   );
 }

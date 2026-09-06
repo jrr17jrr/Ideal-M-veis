@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { cn } from "@/lib/cn";
 import { ChevronLeft, ChevronRight } from "@/components/ui/icons";
@@ -15,37 +15,41 @@ export function ProductGallery({
   const [index, setIndex] = useState(0);
   const total = images.length;
 
+  // Ao trocar a lista de imagens (ex.: seleção de cor), volta para a primeira.
+  useEffect(() => {
+    setIndex(0);
+  }, [images]);
+
   const go = (next: number) => setIndex((next + total) % total);
+  const src = images[Math.min(index, total - 1)] ?? images[0];
 
   return (
     <div className="flex flex-col gap-3 lg:flex-row lg:gap-4">
-      {/* Miniaturas — à esquerda no desktop */}
       {total > 1 && (
         <div className="order-2 flex gap-3 lg:order-1 lg:flex-col">
-          {images.map((src, i) => (
+          {images.map((thumb, i) => (
             <button
-              key={src}
+              key={`${thumb}-${i}`}
               onClick={() => setIndex(i)}
               aria-label={`Ver imagem ${i + 1}`}
               aria-current={i === index}
               className={cn(
                 "relative h-16 w-16 shrink-0 overflow-hidden rounded-lg bg-stone-100 ring-2 transition sm:h-20 sm:w-20",
                 i === index
-                  ? "ring-stone-900"
+                  ? "ring-brand"
                   : "ring-transparent hover:ring-stone-300",
               )}
             >
-              <Image src={src} alt="" fill sizes="80px" className="object-cover" />
+              <Image src={thumb} alt="" fill sizes="80px" className="object-cover" />
             </button>
           ))}
         </div>
       )}
 
-      {/* Imagem principal */}
       <div className="relative order-1 aspect-square w-full overflow-hidden rounded-2xl bg-stone-100 lg:order-2 lg:flex-1">
         <Image
-          key={images[index]}
-          src={images[index]}
+          key={src}
+          src={src}
           alt={`${alt} — imagem ${index + 1}`}
           fill
           priority

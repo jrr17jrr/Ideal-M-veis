@@ -45,6 +45,7 @@ function cartItemToOrderItem(item: CartItem): OrderItem {
     image: item.image,
     unitPrice: item.unitPrice,
     quantity: item.quantity,
+    color: item.color,
     options: item.options,
   };
 }

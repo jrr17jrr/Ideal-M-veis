@@ -53,11 +53,13 @@ export interface NavItem {
 
 export const MAIN_NAV: NavItem[] = [
   { label: "Início", href: "/" },
-  { label: "Sofás", href: "/produtos?categoria=sofas" },
-  { label: "Mesas", href: "/produtos?categoria=mesas" },
-  { label: "Cadeiras", href: "/produtos?categoria=cadeiras" },
-  { label: "Quartos", href: "/categoria/quarto", categorySlug: "quarto" },
-  { label: "Racks e Painéis", href: "/produtos?categoria=racks-paineis" },
+  { label: "Sofás", href: "/categoria/sofas", categorySlug: "sofas" },
+  { label: "Poltronas", href: "/categoria/poltronas", categorySlug: "poltronas" },
+  { label: "Mesas", href: "/categoria/mesas", categorySlug: "mesas" },
+  { label: "Cadeiras", href: "/categoria/cadeiras", categorySlug: "cadeiras" },
+  { label: "Camas", href: "/categoria/camas", categorySlug: "camas" },
+  { label: "Guarda-roupas", href: "/categoria/guarda-roupas", categorySlug: "guarda-roupas" },
+  { label: "Racks e Painéis", href: "/categoria/racks-paineis", categorySlug: "racks-paineis" },
   { label: "Escritório", href: "/categoria/escritorio", categorySlug: "escritorio" },
   { label: "Decoração", href: "/categoria/decoracao", categorySlug: "decoracao" },
   { label: "Ambientes", href: "/#ambientes" },
@@ -107,21 +109,23 @@ export const CATEGORY_SHOWCASE: {
   href: string;
   image: string;
 }[] = [
-  { label: "Sofás", href: "/produtos?q=sof%C3%A1", image: "/images/categories/sofas.jpg" },
-  { label: "Mesas", href: "/produtos?q=mesa", image: "/images/categories/mesas.jpg" },
-  { label: "Cadeiras", href: "/produtos?q=cadeira", image: "/images/categories/cadeiras.jpg" },
-  { label: "Racks e painéis", href: "/produtos?q=rack", image: "/images/categories/racks-paineis.jpg" },
-  { label: "Quartos", href: "/categoria/quarto", image: "/images/categories/quartos.jpg" },
+  { label: "Sofás", href: "/categoria/sofas", image: "/images/categories/sofas.jpg" },
+  { label: "Poltronas", href: "/categoria/poltronas", image: "/images/categories/poltronas.jpg" },
+  { label: "Mesas", href: "/categoria/mesas", image: "/images/categories/mesas.jpg" },
+  { label: "Cadeiras", href: "/categoria/cadeiras", image: "/images/categories/cadeiras.jpg" },
+  { label: "Camas", href: "/categoria/camas", image: "/images/categories/camas.jpg" },
+  { label: "Guarda-roupas", href: "/categoria/guarda-roupas", image: "/images/categories/guarda-roupas.jpg" },
+  { label: "Racks e Painéis", href: "/categoria/racks-paineis", image: "/images/categories/racks-paineis.jpg" },
   { label: "Escritório", href: "/categoria/escritorio", image: "/images/categories/escritorio.jpg" },
-  { label: "Decoração", href: "/categoria/decoracao", image: "/images/categories/decoracao.jpg" },
 ];
 
 /** Seção "Compre por ambiente" da home — cards grandes de ambiente. */
 export const SHOP_BY_ROOM: { label: string; href: string; image: string }[] = [
-  { label: "Sala de estar", href: "/categoria/sala", image: "/images/rooms/sala.jpg" },
-  { label: "Quarto", href: "/categoria/quarto", image: "/images/rooms/quarto.jpg" },
-  { label: "Cozinha e Jantar", href: "/categoria/cozinha", image: "/images/rooms/cozinha.jpg" },
-  { label: "Home Office", href: "/categoria/escritorio", image: "/images/rooms/escritorio.jpg" },
+  { label: "Sala de estar", href: "/produtos?ambiente=sala-de-estar", image: "/images/rooms/sala.jpg" },
+  { label: "Sala de jantar", href: "/produtos?ambiente=sala-de-jantar", image: "/images/rooms/jantar.jpg" },
+  { label: "Quarto", href: "/produtos?ambiente=quarto", image: "/images/rooms/quarto.jpg" },
+  { label: "Escritório", href: "/produtos?ambiente=escritorio", image: "/images/rooms/escritorio.jpg" },
+  { label: "Área externa", href: "/produtos?ambiente=area-externa", image: "/images/rooms/varanda.jpg" },
 ];
 
 export const STORE_FOOTER_TAGLINE =
@@ -131,11 +135,11 @@ export const FOOTER_LINKS: { title: string; links: { label: string; href: string
   {
     title: "Categorias",
     links: [
-      { label: "Sala", href: "/categoria/sala" },
-      { label: "Quarto", href: "/categoria/quarto" },
-      { label: "Cozinha e Jantar", href: "/categoria/cozinha" },
+      { label: "Sofás", href: "/categoria/sofas" },
+      { label: "Poltronas", href: "/categoria/poltronas" },
+      { label: "Mesas e cadeiras", href: "/categoria/mesas" },
+      { label: "Camas e guarda-roupas", href: "/categoria/camas" },
       { label: "Escritório", href: "/categoria/escritorio" },
-      { label: "Decoração", href: "/categoria/decoracao" },
       { label: "Ofertas", href: "/ofertas" },
     ],
   },

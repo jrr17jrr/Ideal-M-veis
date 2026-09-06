@@ -1,7 +1,6 @@
 /**
- * Lógica PURA de catálogo (filtro/ordenação/busca).
- * Sem dependência de React ou de data source — usada tanto pelo
- * `services/products.ts` quanto pela UI de catálogo no client.
+ * Lógica PURA de catálogo (filtro / ordenação / busca).
+ * Sem React e sem data source — usada pelo `services/products.ts` e pela UI.
  */
 import type {
   Availability,
@@ -26,8 +25,9 @@ export function matchesText(p: Product, term: string): boolean {
   return [
     p.name,
     p.category,
+    p.room ?? "",
     p.material ?? "",
-    p.environment ?? "",
+    p.style ?? "",
     ...(p.colors ?? []),
     p.description,
   ]
@@ -41,8 +41,13 @@ export function filterProducts(
   filters: ProductFilters,
 ): Product[] {
   return list.filter((p) => {
-    if (filters.category && p.category !== filters.category) return false;
-    if (filters.environment && p.environment !== filters.environment) return false;
+    if (filters.categories?.length && !filters.categories.includes(p.category))
+      return false;
+    if (
+      filters.rooms?.length &&
+      (!p.room || !filters.rooms.includes(p.room))
+    )
+      return false;
     if (filters.minPrice != null && effectivePrice(p) < filters.minPrice)
       return false;
     if (filters.maxPrice != null && effectivePrice(p) > filters.maxPrice)

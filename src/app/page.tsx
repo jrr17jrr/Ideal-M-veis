@@ -8,7 +8,6 @@ import { CtaBanner } from "@/components/home/CtaBanner";
 import { ShopByRoom } from "@/components/home/ShopByRoom";
 import { ProductCarousel } from "@/components/product/ProductCarousel";
 import {
-  getFeaturedProducts,
   getBestSellers,
   getOnSaleProducts,
   getNewArrivals,
@@ -17,13 +16,11 @@ import {
 
 export default async function HomePage() {
   const [bestSellers, onSale, newArrivals, recommended] = await Promise.all([
-    getBestSellers(8),
-    getOnSaleProducts(8),
-    getNewArrivals(8),
-    getTopRatedProducts(8),
+    getBestSellers(10),
+    getOnSaleProducts(10),
+    getNewArrivals(10),
+    getTopRatedProducts(10),
   ]);
-  // usados só como fallback caso alguma lista fique curta
-  const featured = await getFeaturedProducts(8);
 
   return (
     <>
@@ -87,9 +84,7 @@ export default async function HomePage() {
           linkHref="/produtos?sort=newest"
         />
         <div className="mt-8">
-          <ProductCarousel
-            products={newArrivals.length >= 4 ? newArrivals : featured}
-          />
+          <ProductCarousel products={newArrivals} />
         </div>
       </Container>
 

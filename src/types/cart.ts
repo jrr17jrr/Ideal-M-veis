@@ -1,9 +1,9 @@
-import type { Product } from "./product";
+import type { Product, ProductVariant } from "./product";
+import { variantPrice } from "./product";
 
 /**
- * Item do carrinho. Guardamos um snapshot mínimo do produto para que o
- * carrinho continue renderizável mesmo se o catálogo mudar, mas mantemos
- * `productId`/`slug` para revalidar preço e estoque quando necessário.
+ * Item do carrinho — snapshot mínimo do produto (renderizável mesmo se o
+ * catálogo mudar) + `productId`/`slug` para revalidar, e a variação escolhida.
  */
 export interface CartItem {
   productId: string;
@@ -15,7 +15,10 @@ export interface CartItem {
   /** Preço cheio unitário (para exibir economia) */
   listPrice: number;
   quantity: number;
-  /** Variação escolhida, ex.: { Cor: "Bege", Tamanho: "2,00m" } */
+  /** Cor escolhida (variação com imagem própria) */
+  color?: string;
+  colorHex?: string;
+  /** Outras opções: { Tamanho: "Queen", Tecido: "Linho" } */
   options?: Record<string, string>;
 }
 
@@ -26,19 +29,40 @@ export interface CartTotals {
   total: number;
 }
 
+export interface CartSelection {
+  variant?: ProductVariant;
+  options?: Record<string, string>;
+}
+
+/** Chave que identifica uma linha do carrinho (produto + cor + opções). */
+export function cartLineKey(
+  productId: string,
+  color?: string,
+  options?: Record<string, string>,
+): string {
+  return `${productId}::${color ?? ""}::${JSON.stringify(options ?? {})}`;
+}
+
 export function createCartItem(
   product: Product,
   quantity: number,
-  options?: Record<string, string>,
+  selection: CartSelection = {},
 ): CartItem {
+  const { variant, options } = selection;
+  const { price, salePrice } = variantPrice(product, variant);
+  const image =
+    variant?.images?.[0] ?? product.images[0];
+
   return {
     productId: product.id,
     slug: product.slug,
     name: product.name,
-    image: product.images[0],
-    unitPrice: product.salePrice ?? product.price,
-    listPrice: product.price,
+    image,
+    unitPrice: salePrice ?? price,
+    listPrice: price,
     quantity,
-    options,
+    color: variant?.color,
+    colorHex: variant?.colorHex,
+    options: options && Object.keys(options).length > 0 ? options : undefined,
   };
 }
