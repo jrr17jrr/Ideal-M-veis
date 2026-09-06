@@ -53,49 +53,52 @@ export interface NavItem {
 
 export const MAIN_NAV: NavItem[] = [
   { label: "Início", href: "/" },
-  { label: "Sala", href: "/categoria/sala", categorySlug: "sala" },
-  { label: "Quarto", href: "/categoria/quarto", categorySlug: "quarto" },
-  { label: "Cozinha", href: "/categoria/cozinha", categorySlug: "cozinha" },
-  {
-    label: "Escritório",
-    href: "/categoria/escritorio",
-    categorySlug: "escritorio",
-  },
-  {
-    label: "Decoração",
-    href: "/categoria/decoracao",
-    categorySlug: "decoracao",
-  },
+  { label: "Sofás", href: "/produtos?categoria=sofas" },
+  { label: "Mesas", href: "/produtos?categoria=mesas" },
+  { label: "Cadeiras", href: "/produtos?categoria=cadeiras" },
+  { label: "Quartos", href: "/categoria/quarto", categorySlug: "quarto" },
+  { label: "Racks e Painéis", href: "/produtos?categoria=racks-paineis" },
+  { label: "Escritório", href: "/categoria/escritorio", categorySlug: "escritorio" },
+  { label: "Decoração", href: "/categoria/decoracao", categorySlug: "decoracao" },
+  { label: "Ambientes", href: "/#ambientes" },
   { label: "Ofertas", href: "/ofertas" },
 ];
 
 export interface Benefit {
   title: string;
   description: string;
-  icon: "shield" | "card" | "truck" | "headset";
+  icon: "shield" | "card" | "truck" | "headset" | "percent";
 }
 
 export const BENEFITS: Benefit[] = [
   {
-    title: "Compra segura",
-    description: "Ambiente protegido e dados criptografados.",
-    icon: "shield",
-  },
-  {
-    title: "Até 12x sem juros",
-    description: "No cartão, ou 10% de desconto no Pix.",
-    icon: "card",
-  },
-  {
     title: "Entrega para todo o Brasil",
-    description: "Logística própria nas capitais.",
+    description: "Com segurança e agilidade",
     icon: "truck",
   },
   {
+    title: "Até 12x sem juros",
+    description: "No cartão de crédito",
+    icon: "card",
+  },
+  {
+    title: "5% de desconto no Pix",
+    description: "Mais economia para você",
+    icon: "percent",
+  },
+  {
     title: "Atendimento especializado",
-    description: "Consultoria de ambientação de seg. a sáb.",
+    description: "Antes e depois da sua compra",
     icon: "headset",
   },
+];
+
+/** Itens da barrinha superior do header. */
+export const TOP_BAR_ITEMS = [
+  "Entrega para todo o Brasil",
+  "Até 12x sem juros",
+  "Compra segura",
+  "Atendimento especializado",
 ];
 
 /** Seção "Compre por categoria" da home — cards com foto por tipo de produto. */

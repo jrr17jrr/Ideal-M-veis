@@ -24,6 +24,14 @@ export type EnvironmentSlug =
 
 export type Availability = "in_stock" | "low_stock" | "out_of_stock";
 
+export type FurnitureStyle =
+  | "moderno"
+  | "minimalista"
+  | "classico"
+  | "industrial"
+  | "contemporaneo"
+  | "rustico";
+
 export interface ProductDimensions {
   /** Largura em centímetros */
   width: number;
@@ -59,6 +67,7 @@ export interface Product {
   material?: string;
   colors?: string[];
   environment?: EnvironmentSlug;
+  style?: FurnitureStyle;
   dimensions?: ProductDimensions;
 
   /* Campos extras usados pela página de produto (mockados por enquanto) */
@@ -93,6 +102,7 @@ export interface ProductFilters {
   maxPrice?: number;
   colors?: string[];
   materials?: string[];
+  styles?: FurnitureStyle[];
   availability?: Availability[];
   onSaleOnly?: boolean;
   search?: string;

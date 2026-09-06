@@ -59,7 +59,7 @@ src/
 │
 ├── components/
 │   ├── layout/                 # Header, Footer, MobileMenu, SearchOverlay, Logo
-│   ├── home/                   # Hero, CategoryCards, PromoBanner, Benefits, ...
+│   ├── home/                   # HeroVideo, HeroSearch, CategoryShowcase, PromoBanner, ...
 │   ├── product/                # ProductCard, ProductGallery, ProductPurchase, ...
 │   ├── catalog/                # CatalogView (filtros/ordenação/paginação) + FilterPanel
 │   ├── cart/                   # CartDrawer (mini-cart), CartLineItem, CartSummary
@@ -83,7 +83,7 @@ src/
 │   └── orders.ts               # listOrders / getOrder / buildLocalOrder
 │
 ├── data/                       # Dados MOCKADOS (não usar direto nos componentes!)
-│   ├── products.ts             # 28 produtos fictícios
+│   ├── products.ts             # 31 produtos fictícios
 │   ├── categories.ts  reviews.ts  orders.ts  user.ts  shipping.ts
 │
 ├── lib/
@@ -184,6 +184,27 @@ Quando as fotos definitivas do cliente existirem, basta substituir os arquivos
 em `public/images/` mantendo os mesmos nomes — nenhum código muda. Para servir de
 CDN externo (Supabase Storage etc.), os domínios já estão liberados em
 `next.config.ts` (`images.remotePatterns`).
+
+### Vídeo do hero
+
+O hero da home tem um **vídeo de fundo** (`<video autoPlay muted loop playsInline>`):
+
+```
+public/videos/
+├── hero-moveis.mp4       # 720p (~3 MB) — usado no desktop
+└── hero-moveis-360.mp4   # 360p (~0,7 MB) — usado no mobile
+public/images/hero/hero-poster.jpg  # poster / fallback
+```
+
+- Fonte atual: [Mixkit](https://mixkit.co) (Mixkit License — uso livre, inclusive
+  comercial, permitido como fundo de site). Baixado por `npm run fetch:photos`.
+- **Para trocar o vídeo:** substitua `public/videos/hero-moveis.mp4`
+  (e opcionalmente `hero-moveis-360.mp4` e `public/images/hero/hero-poster.jpg`)
+  mantendo os nomes. Nada no código muda.
+- Componente: `src/components/home/HeroVideo.tsx`. Respeita
+  `prefers-reduced-motion` (mostra só o poster), usa a versão 360p no mobile, tem
+  controles próprios de pausar/reproduzir e som/sem-som, e o poster é sempre a
+  camada base (a página nunca fica com vídeo "quebrado").
 
 ---
 

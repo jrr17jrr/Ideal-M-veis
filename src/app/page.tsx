@@ -4,24 +4,32 @@ import { Hero } from "@/components/home/Hero";
 import { CategoryShowcase } from "@/components/home/CategoryShowcase";
 import { Benefits } from "@/components/home/Benefits";
 import { PromoBanner } from "@/components/home/PromoBanner";
+import { CtaBanner } from "@/components/home/CtaBanner";
 import { ShopByRoom } from "@/components/home/ShopByRoom";
 import { ProductCarousel } from "@/components/product/ProductCarousel";
 import {
   getFeaturedProducts,
   getBestSellers,
   getOnSaleProducts,
+  getNewArrivals,
+  getTopRatedProducts,
 } from "@/services/products";
 
 export default async function HomePage() {
-  const [featured, bestSellers, onSale] = await Promise.all([
-    getFeaturedProducts(8),
-    getBestSellers(4),
+  const [bestSellers, onSale, newArrivals, recommended] = await Promise.all([
+    getBestSellers(8),
     getOnSaleProducts(8),
+    getNewArrivals(8),
+    getTopRatedProducts(8),
   ]);
+  // usados só como fallback caso alguma lista fique curta
+  const featured = await getFeaturedProducts(8);
 
   return (
     <>
       <Hero />
+
+      <Benefits />
 
       <Container className="py-12 lg:py-16">
         <SectionHeader
@@ -36,12 +44,12 @@ export default async function HomePage() {
 
       <Container className="py-12 lg:py-16">
         <SectionHeader
-          eyebrow="Seleção da casa"
-          title="Produtos em destaque"
-          linkHref="/produtos"
+          eyebrow="Preferidos dos clientes"
+          title="Mais vendidos"
+          linkHref="/produtos?sort=best_sellers"
         />
         <div className="mt-8">
-          <ProductCarousel products={featured} />
+          <ProductCarousel products={bestSellers} />
         </div>
       </Container>
 
@@ -61,20 +69,7 @@ export default async function HomePage() {
         </div>
       </Container>
 
-      <Benefits />
-
-      <Container className="py-12 lg:py-16">
-        <SectionHeader
-          eyebrow="Preferidos dos clientes"
-          title="Mais vendidos"
-          linkHref="/produtos?sort=best_sellers"
-        />
-        <div className="mt-8">
-          <ProductCarousel products={bestSellers} />
-        </div>
-      </Container>
-
-      <Container className="py-12 lg:py-16">
+      <Container id="ambientes" className="scroll-mt-28 py-12 lg:py-16">
         <SectionHeader
           eyebrow="Inspire-se"
           title="Compre por ambiente"
@@ -82,6 +77,34 @@ export default async function HomePage() {
         />
         <div className="mt-8">
           <ShopByRoom />
+        </div>
+      </Container>
+
+      <Container className="py-12 lg:py-16">
+        <SectionHeader
+          eyebrow="Recém-chegados"
+          title="Lançamentos"
+          linkHref="/produtos?sort=newest"
+        />
+        <div className="mt-8">
+          <ProductCarousel
+            products={newArrivals.length >= 4 ? newArrivals : featured}
+          />
+        </div>
+      </Container>
+
+      <section className="py-6 lg:py-8">
+        <CtaBanner />
+      </section>
+
+      <Container className="py-12 lg:py-16">
+        <SectionHeader
+          eyebrow="Você também pode gostar"
+          title="Produtos recomendados"
+          linkHref="/produtos"
+        />
+        <div className="mt-8">
+          <ProductCarousel products={recommended} />
         </div>
       </Container>
     </>

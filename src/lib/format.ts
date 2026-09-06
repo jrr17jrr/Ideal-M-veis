@@ -50,7 +50,7 @@ export function formatInstallment(total: number): string {
 }
 
 /** Desconto à vista / Pix (mockado). */
-export const PIX_DISCOUNT = 0.1;
+export const PIX_DISCOUNT = 0.05;
 
 export function pixPrice(total: number): number {
   return total * (1 - PIX_DISCOUNT);

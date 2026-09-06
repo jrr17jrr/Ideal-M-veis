@@ -1,11 +1,13 @@
 /**
- * Baixa fotos reais (Pexels — licença livre para uso, sem atribuição obrigatória)
- * para `public/images/`. Uso:
+ * Baixa os ASSETS de mídia da loja para `public/`:
+ *  - Fotos (Pexels — licença livre para uso, sem atribuição obrigatória)
+ *  - Vídeo do hero (Mixkit — Mixkit License, uso livre inclusive comercial,
+ *    permitido como fundo de site)
  *
- *   node scripts/fetch-photos.mjs
+ * Uso:  node scripts/fetch-photos.mjs   (--force para rebaixar tudo)
  *
- * As fotos são versionadas no repositório para o site não depender de CDN externo.
- * Se quiser trocar uma foto, altere o ID no MANIFEST e rode de novo.
+ * Tudo é versionado no repositório para o site não depender de CDN externo.
+ * Para trocar um asset: altere o ID/URL no MANIFEST/VIDEOS e rode de novo.
  */
 import { mkdirSync, writeFileSync, existsSync, statSync } from "node:fs";
 import { dirname, join } from "node:path";
@@ -13,6 +15,7 @@ import { fileURLToPath } from "node:url";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const OUT = join(ROOT, "public", "images");
+const PUBLIC = join(ROOT, "public");
 
 const px = (id, w, h) =>
   `https://images.pexels.com/photos/${id}/pexels-photo-${id}.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=${w}&h=${h}`;
@@ -28,7 +31,6 @@ const WBAN = [1200, 900]; // banner lateral (4:3)
 
 const MANIFEST = {
   /* ---------------- Hero + banners + ambientes ---------------- */
-  "hero/sala-ampla.jpg": px(5793547, ...WIDE),
   "banners/renove-sua-casa.jpg": px(2343469, ...WBAN),
   "banners/ofertas.jpg": px(34277650, ...WIDE),
 
@@ -120,11 +122,30 @@ const MANIFEST = {
   "products/espelho-redondo-sol-80-2.jpg": px(15269290, ...SQ),
   "products/tapete-berbere-geometrico-200x250.jpg": px(6835168, ...SQ),
   "products/tapete-berbere-geometrico-200x250-2.jpg": px(18038065, ...SQ),
+  "products/jogo-almofadas-decorativas.jpg": px(1239221, ...SQ),
+  "products/jogo-almofadas-decorativas-2.jpg": px(6312055, ...SQ),
+  "products/trio-vasos-ceramicos-fosco.jpg": px(33126633, ...SQ),
+  "products/trio-vasos-ceramicos-fosco-2.jpg": px(6969835, ...SQ),
+  "products/kit-3-quadros-decorativos-moldura.jpg": px(32106611, ...SQ),
+  "products/kit-3-quadros-decorativos-moldura-2.jpg": px(707580, ...SQ),
+
+  /* Poster do vídeo do hero (frame extraído do próprio vídeo Mixkit 3090) */
+  "hero/hero-poster.jpg": "https://assets.mixkit.co/videos/3090/3090-thumb-720-0.jpg",
+};
+
+/* ---------------------------------------------------------------------------
+ *  Vídeo de fundo do hero — Mixkit "Modern living room with wooden furniture".
+ *  Alternativas: 3091 (minimalist room with wooden furniture), 3110 (gray sofa).
+ *  Basta trocar o ID e rodar de novo.
+ * ------------------------------------------------------------------------- */
+const VIDEOS = {
+  "videos/hero-moveis.mp4": "https://assets.mixkit.co/videos/3090/3090-720.mp4",
+  "videos/hero-moveis-360.mp4": "https://assets.mixkit.co/videos/3090/3090-360.mp4",
 };
 
 /* -------------------------------------------------------------------------- */
 
-async function download(url, dest, tries = 3) {
+async function download(url, dest, tries = 3, minBytes = 5000) {
   for (let i = 1; i <= tries; i++) {
     try {
       const res = await fetch(url, {
@@ -132,7 +153,8 @@ async function download(url, dest, tries = 3) {
       });
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const buf = Buffer.from(await res.arrayBuffer());
-      if (buf.length < 5000) throw new Error(`arquivo muito pequeno (${buf.length}b)`);
+      if (buf.length < minBytes)
+        throw new Error(`arquivo muito pequeno (${buf.length}b)`);
       mkdirSync(dirname(dest), { recursive: true });
       writeFileSync(dest, buf);
       return buf.length;
@@ -148,15 +170,25 @@ let ok = 0;
 let bytes = 0;
 const failed = [];
 
-for (const [rel, url] of Object.entries(MANIFEST)) {
-  const dest = join(OUT, rel);
-  if (!force && existsSync(dest) && statSync(dest).size > 5000) {
+const jobs = [
+  ...Object.entries(MANIFEST).map(([rel, url]) => ({ base: OUT, rel, url })),
+  ...Object.entries(VIDEOS).map(([rel, url]) => ({
+    base: PUBLIC,
+    rel,
+    url,
+    min: 100_000,
+  })),
+];
+
+for (const { base, rel, url, min } of jobs) {
+  const dest = join(base, rel);
+  if (!force && existsSync(dest) && statSync(dest).size > (min ?? 5000)) {
     ok++;
     bytes += statSync(dest).size;
     continue;
   }
   try {
-    const size = await download(url, dest);
+    const size = await download(url, dest, 3, min ?? 5000);
     ok++;
     bytes += size;
     process.stdout.write(".");
@@ -167,7 +199,7 @@ for (const [rel, url] of Object.entries(MANIFEST)) {
 }
 
 console.log(
-  `\n\n✓ ${ok}/${Object.keys(MANIFEST).length} fotos (${(bytes / 1e6).toFixed(1)} MB) em public/images/`,
+  `\n\n✓ ${ok}/${jobs.length} assets (${(bytes / 1e6).toFixed(1)} MB) em public/`,
 );
 if (failed.length) {
   console.log(`\n✗ ${failed.length} falharam:\n` + failed.join("\n"));

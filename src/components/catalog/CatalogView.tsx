@@ -12,7 +12,7 @@ import { EmptyState } from "@/components/ui/EmptyState";
 import { ProductGrid } from "@/components/product/ProductGrid";
 import { SlidersIcon, CloseIcon, SearchIcon } from "@/components/ui/icons";
 import { FilterPanel } from "./FilterPanel";
-import { SORT_OPTIONS } from "./filterConfig";
+import { SORT_OPTIONS, STYLE_OPTIONS } from "./filterConfig";
 import { countActiveFilters, EMPTY_CATALOG_STATE, type CatalogFilterState } from "./types";
 import { catalogStateToQuery } from "./catalogParams";
 
@@ -63,6 +63,7 @@ export function CatalogView({
           maxPrice: effectiveState.priceMax,
           colors: effectiveState.colors,
           materials: effectiveState.materials,
+          styles: effectiveState.styles,
           availability: effectiveState.availability,
           onSaleOnly: effectiveState.onSaleOnly,
           search: effectiveState.search,
@@ -299,6 +300,12 @@ function ActiveChips({
     chips.push({
       label: m,
       clear: () => onChange({ materials: state.materials.filter((x) => x !== m) }),
+    }),
+  );
+  state.styles.forEach((st) =>
+    chips.push({
+      label: STYLE_OPTIONS.find((o) => o.value === st)?.label ?? st,
+      clear: () => onChange({ styles: state.styles.filter((x) => x !== st) }),
     }),
   );
   state.availability.forEach((a) =>

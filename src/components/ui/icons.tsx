@@ -142,6 +142,14 @@ export const CreditCardIcon = (p: IconProps) => (
   </Base>
 );
 
+export const PercentIcon = (p: IconProps) => (
+  <Base {...p}>
+    <path d="M19 5 5 19" />
+    <circle cx="6.5" cy="6.5" r="2.5" />
+    <circle cx="17.5" cy="17.5" r="2.5" />
+  </Base>
+);
+
 export const TruckIcon = (p: IconProps) => (
   <Base {...p}>
     <path d="M14 18V6H2v12h2" />

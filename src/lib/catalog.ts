@@ -61,6 +61,11 @@ export function filterProducts(
     )
       return false;
     if (
+      filters.styles?.length &&
+      (!p.style || !filters.styles.includes(p.style))
+    )
+      return false;
+    if (
       filters.availability?.length &&
       !filters.availability.includes(availabilityOf(p))
     )

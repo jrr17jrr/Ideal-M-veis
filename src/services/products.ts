@@ -64,6 +64,12 @@ export async function getNewArrivals(limit = 8): Promise<Product[]> {
   return ALL_PRODUCTS.filter((p) => p.new).slice(0, limit);
 }
 
+export async function getTopRatedProducts(limit = 8): Promise<Product[]> {
+  return [...ALL_PRODUCTS]
+    .sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0))
+    .slice(0, limit);
+}
+
 export async function getOnSaleProducts(limit = 8): Promise<Product[]> {
   const discount = (p: Product) => 1 - (p.salePrice ?? p.price) / p.price;
   return ALL_PRODUCTS.filter((p) => p.salePrice != null)

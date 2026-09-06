@@ -7,7 +7,7 @@ import { Container } from "@/components/ui/Container";
 import { Logo } from "./Logo";
 import { MobileMenu } from "./MobileMenu";
 import { SearchOverlay } from "./SearchOverlay";
-import { MAIN_NAV } from "@/lib/constants";
+import { MAIN_NAV, TOP_BAR_ITEMS } from "@/lib/constants";
 import { cn } from "@/lib/cn";
 import { useCart } from "@/context/CartContext";
 import { useFavorites } from "@/context/FavoritesContext";
@@ -30,14 +30,24 @@ export function Header() {
 
   return (
     <>
+      {/* Barra superior */}
       <div className="bg-stone-900 text-white">
-        <Container className="flex h-9 items-center justify-center text-center text-[12px] tracking-wide">
-          Frete grátis na entrega econômica acima de R$ 4.000 · 10% de desconto no Pix
+        <Container className="flex h-9 items-center overflow-x-auto no-scrollbar">
+          <ul className="mx-auto flex items-center whitespace-nowrap text-[11.5px] tracking-wide text-stone-300">
+            {TOP_BAR_ITEMS.map((item, i) => (
+              <li key={item} className="flex items-center">
+                {i > 0 && (
+                  <span aria-hidden className="mx-3 h-1 w-1 rounded-full bg-stone-600 sm:mx-4" />
+                )}
+                {item}
+              </li>
+            ))}
+          </ul>
         </Container>
       </div>
 
       <header className="sticky top-0 z-50 border-b border-stone-200 bg-canvas/95 backdrop-blur">
-        <Container className="flex h-16 items-center gap-3 lg:h-[72px] lg:gap-6">
+        <Container className="flex h-16 items-center gap-3 lg:h-[76px] lg:gap-6">
           <button
             onClick={() => setMenuOpen(true)}
             aria-label="Abrir menu"
@@ -48,15 +58,12 @@ export function Header() {
 
           <Logo className="shrink-0" />
 
-          {/* Busca — visível no desktop */}
           <button
             onClick={() => setSearchOpen(true)}
-            className="ml-2 hidden h-11 max-w-lg flex-1 items-center gap-3 rounded-full border border-stone-300 px-4 text-left text-sm text-stone-400 transition-colors hover:border-stone-400 lg:flex"
+            className="ml-2 hidden h-11 max-w-md flex-1 items-center gap-3 rounded-full border border-stone-300 px-4 text-left text-sm text-stone-400 transition-colors hover:border-stone-400 lg:flex"
           >
             <SearchIcon className="h-4 w-4 shrink-0" />
-            <span className="truncate">
-              Buscar por móveis, ambientes ou materiais…
-            </span>
+            <span className="truncate">Buscar por móveis, ambientes ou materiais…</span>
           </button>
 
           <div className="ml-auto flex items-center gap-0.5 sm:gap-1">
@@ -100,22 +107,24 @@ export function Header() {
 
         {/* Navegação de categorias — desktop */}
         <div className="hidden border-t border-stone-200/70 lg:block">
-          <Container>
-            <nav className="flex items-center gap-8">
+          <Container className="overflow-x-auto no-scrollbar">
+            <nav className="flex items-center gap-x-6 whitespace-nowrap">
               {MAIN_NAV.map((item) => {
+                const base = item.href.split(/[?#]/)[0];
                 const active =
-                  item.href === "/"
-                    ? pathname === "/"
-                    : pathname.startsWith(item.href);
+                  base === "/"
+                    ? pathname === "/" && !item.href.includes("#")
+                    : pathname.startsWith(base) &&
+                      (base !== "/produtos" || pathname === "/produtos");
                 return (
                   <Link
-                    key={item.href}
+                    key={item.label}
                     href={item.href}
                     className={cn(
-                      "relative py-3 text-sm transition-colors hover:text-stone-900",
+                      "relative py-3 text-[13px] transition-colors hover:text-stone-900",
                       active ? "text-stone-900" : "text-stone-600",
                       item.href === "/ofertas" &&
-                        "font-medium text-brand hover:text-brand-dark",
+                        "font-semibold text-brand hover:text-brand-dark",
                     )}
                   >
                     {item.label}

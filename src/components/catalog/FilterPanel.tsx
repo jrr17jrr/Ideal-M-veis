@@ -9,6 +9,7 @@ import {
   AVAILABILITY_OPTIONS,
   ENVIRONMENT_OPTIONS,
   PRICE_RANGES,
+  STYLE_OPTIONS,
 } from "./filterConfig";
 import type { CatalogFilterState } from "./types";
 
@@ -112,6 +113,17 @@ export function FilterPanel({
             checked={state.environments.includes(e.value)}
             onChange={() => onChange({ environments: toggle(state.environments, e.value) })}
             label={e.label}
+          />
+        ))}
+      </Group>
+
+      <Group title="Estilo">
+        {STYLE_OPTIONS.map((s) => (
+          <Checkbox
+            key={s.value}
+            checked={state.styles.includes(s.value)}
+            onChange={() => onChange({ styles: toggle(state.styles, s.value) })}
+            label={s.label}
           />
         ))}
       </Group>

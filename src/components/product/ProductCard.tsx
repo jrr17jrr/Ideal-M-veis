@@ -95,15 +95,15 @@ export function ProductCard({
           <h3 className="line-clamp-2 text-sm font-medium leading-snug text-stone-900">
             {product.name}
           </h3>
-          <div className="mt-1.5 flex items-baseline gap-2">
+          <div className="mt-1.5">
             {product.salePrice != null && (
               <span className="text-xs text-stone-400 line-through">
-                {formatCurrency(product.price)}
+                de {formatCurrency(product.price)}
               </span>
             )}
-            <span className="text-lg font-semibold text-stone-900">
+            <p className="text-lg font-semibold text-stone-900">
               {formatCurrency(current)}
-            </span>
+            </p>
           </div>
           <p className="text-xs text-stone-500">{formatInstallment(current)}</p>
           <p className="text-xs font-medium text-emerald-700">

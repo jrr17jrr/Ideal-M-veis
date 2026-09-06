@@ -1,16 +1,22 @@
 @import "tailwindcss";
 
 /* -------------------------------------------------------------------------- */
-/*  Identidade visual — NEUTRA e elegante.                                     */
-/*  Troque apenas os valores abaixo para reposicionar a marca (nome/logo/cor). */
+/*  Identidade visual — off-white + grafite, destaque em caramelo/terracota.   */
+/*  Troque apenas os valores abaixo para reposicionar a marca (cores/fontes).  */
 /* -------------------------------------------------------------------------- */
 @theme {
-  --color-brand: #7d6b58;
-  --color-brand-dark: #5f4f3e;
-  --color-brand-light: #a99a86;
+  /* Destaque quente (caramelo / terracota) */
+  --color-brand: #bd7350;
+  --color-brand-dark: #9a5636;
+  --color-brand-light: #e0a879;
 
-  --color-canvas: #faf8f5;
+  /* Neutros quentes */
+  --color-canvas: #faf7f2;
   --color-surface: #ffffff;
+
+  /* Verde oliva muito escuro — uso pontual em banners */
+  --color-olive: #2e3227;
+  --color-olive-light: #3f4636;
 
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-display: var(--font-fraunces), ui-serif, Georgia, serif;

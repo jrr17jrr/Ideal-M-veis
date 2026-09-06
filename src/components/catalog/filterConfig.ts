@@ -1,4 +1,4 @@
-import type { Availability, SortOption } from "@/types";
+import type { Availability, FurnitureStyle, SortOption } from "@/types";
 
 export const SORT_OPTIONS: { value: SortOption; label: string }[] = [
   { value: "relevance", label: "Mais relevantes" },
@@ -17,9 +17,19 @@ export const AVAILABILITY_OPTIONS: { value: Availability; label: string }[] = [
 export const ENVIRONMENT_OPTIONS: { value: string; label: string }[] = [
   { value: "sala", label: "Sala" },
   { value: "quarto", label: "Quarto" },
-  { value: "cozinha", label: "Cozinha" },
+  { value: "cozinha", label: "Cozinha e Jantar" },
+  { value: "escritorio", label: "Escritório" },
   { value: "home-office", label: "Home office" },
-  { value: "varanda", label: "Varanda" },
+  { value: "varanda", label: "Área externa" },
+];
+
+export const STYLE_OPTIONS: { value: FurnitureStyle; label: string }[] = [
+  { value: "moderno", label: "Moderno" },
+  { value: "minimalista", label: "Minimalista" },
+  { value: "classico", label: "Clássico" },
+  { value: "industrial", label: "Industrial" },
+  { value: "contemporaneo", label: "Contemporâneo" },
+  { value: "rustico", label: "Rústico" },
 ];
 
 export const PRICE_RANGES: { label: string; min?: number; max?: number }[] = [

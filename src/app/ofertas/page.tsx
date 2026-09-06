@@ -48,7 +48,7 @@ export default async function OfertasPage({
           </h1>
           <p className="mt-2 max-w-lg text-sm text-stone-300">
             {onSaleCount} produtos com desconto por tempo limitado — em até 12x
-            sem juros ou com 10% extra no Pix.
+            sem juros ou com 5% extra no Pix.
           </p>
         </div>
       </div>

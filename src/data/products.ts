@@ -28,6 +28,7 @@ export const products: Product[] = [
     id: "p-001",
     name: "Sofá Retrátil e Reclinável Copenhague 3 Lugares",
     slug: "sofa-retratil-copenhague-3-lugares",
+    style: "contemporaneo",
     sku: "SOF-CPH-3L",
     description:
       "Sofá retrátil e reclinável com assentos deslizantes e encosto de altura ajustável. Estrutura em madeira maciça de eucalipto, percintas elásticas italianas e espuma D33 de alta resiliência. O revestimento em linho sintético é impermeável e antimanchas, ideal para o dia a dia com crianças e pets.",
@@ -56,6 +57,7 @@ export const products: Product[] = [
     id: "p-002",
     name: "Sofá Oslo 3 Lugares em Bouclé",
     slug: "sofa-oslo-3-lugares-boucle",
+    style: "moderno",
     sku: "SOF-OSL-3L",
     description:
       "Linhas orgânicas e braços arredondados inspirados no design escandinavo. Revestimento em tecido bouclé encorpado, base de madeira com pés palito em nogueira. Assento único com enchimento de pluma siliconada para um caimento macio.",
@@ -80,6 +82,7 @@ export const products: Product[] = [
     id: "p-003",
     name: "Sofá Lisboa 2 Lugares",
     slug: "sofa-lisboa-2-lugares",
+    style: "contemporaneo",
     sku: "SOF-LIS-2L",
     description:
       "Compacto para apartamentos, mantém o conforto de um sofá grande. Espuma de densidade 28 nos assentos e fibra siliconada nas almofadas de encosto soltas. Revestimento em suede amassado de fácil limpeza.",
@@ -104,6 +107,7 @@ export const products: Product[] = [
     id: "p-004",
     name: "Poltrona Decorativa Nórdica com Puff",
     slug: "poltrona-nordica-com-puff",
+    style: "moderno",
     sku: "POL-NRD-PF",
     description:
       "Poltrona de leitura com encosto alto e base giratória, acompanha puff para os pés. Concha em madeira curvada revestida de espuma e tecido, estrutura metálica com pintura epóxi.",
@@ -129,6 +133,7 @@ export const products: Product[] = [
     id: "p-005",
     name: "Poltrona Giratória Pod em Couro Sintético",
     slug: "poltrona-giratoria-pod-couro-sintetico",
+    style: "contemporaneo",
     sku: "POL-POD-CR",
     description:
       "Design envolvente que abraça o corpo. Revestimento em couro sintético premium com toque acetinado e base estrela em alumínio polido.",
@@ -151,6 +156,7 @@ export const products: Product[] = [
     id: "p-006",
     name: "Rack Munique para TV até 65\"",
     slug: "rack-munique-tv-65",
+    style: "moderno",
     sku: "RCK-MUN-18",
     description:
       "Rack de 1,80 m com duas portas basculantes, nicho central para aparelhos e passagem de fios. Lâmina de madeira natural com acabamento fosco e pés em metal preto.",
@@ -176,6 +182,7 @@ export const products: Product[] = [
     id: "p-007",
     name: "Painel Ripado Berlim 2,20 m",
     slug: "painel-ripado-berlim-220",
+    style: "contemporaneo",
     sku: "PNL-BER-22",
     description:
       "Painel ripado com prateleira flutuante e suporte para TV incluso. Ripas em MDF com textura amadeirada que aquecem o ambiente e disfarçam os cabos.",
@@ -199,6 +206,7 @@ export const products: Product[] = [
     id: "p-008",
     name: "Estante Bauhaus 5 Prateleiras",
     slug: "estante-bauhaus-5-prateleiras",
+    style: "industrial",
     sku: "EST-BAU-05",
     description:
       "Estante alta de linhas retas para livros e objetos, com montantes em metal tubular e prateleiras em madeira. Boa para dividir ambientes sem fechar a luz.",
@@ -222,6 +230,7 @@ export const products: Product[] = [
     id: "p-009",
     name: "Aparador Vienna com Portas de Palhinha",
     slug: "aparador-vienna-palhinha",
+    style: "classico",
     sku: "APR-VIE-PL",
     description:
       "Aparador de sala com quatro portas em palhinha natural indiana, tampo em madeira e pés palito. Peça statement para hall de entrada ou sala de jantar.",
@@ -246,6 +255,7 @@ export const products: Product[] = [
     id: "p-010",
     name: "Mesa de Centro Tokyo Redonda",
     slug: "mesa-centro-tokyo-redonda",
+    style: "minimalista",
     sku: "MSC-TKY-RD",
     description:
       "Dupla de mesas de centro sobrepostas em alturas diferentes, tampos redondos laqueados e base em madeira maciça. Versáteis para salas pequenas.",
@@ -270,6 +280,7 @@ export const products: Product[] = [
     id: "p-011",
     name: "Mesa de Jantar Provence 6 Lugares",
     slug: "mesa-jantar-provence-6-lugares",
+    style: "rustico",
     sku: "MSJ-PRV-6L",
     description:
       "Mesa de jantar de 1,80 m com tampo em madeira maciça de freijó e pés torneados. Comporta seis lugares com folga e resiste ao uso intenso.",
@@ -295,6 +306,7 @@ export const products: Product[] = [
     id: "p-012",
     name: "Mesa de Jantar Redonda Milano 4 Lugares",
     slug: "mesa-jantar-redonda-milano-4-lugares",
+    style: "moderno",
     sku: "MSJ-MIL-4L",
     description:
       "Tampo redondo de 1,20 m em MDF com lâmina natural e pé central tipo tulipa em fibra de vidro. Facilita a circulação em ambientes compactos.",
@@ -318,6 +330,7 @@ export const products: Product[] = [
     id: "p-013",
     name: "Kit 2 Cadeiras Wishbone Trigo",
     slug: "kit-2-cadeiras-wishbone-trigo",
+    style: "classico",
     sku: "CAD-WSB-KIT2",
     description:
       "Releitura da clássica cadeira Wishbone, com estrutura em madeira maciça e assento em corda de papel trançada à mão. Vendida em par.",
@@ -343,6 +356,7 @@ export const products: Product[] = [
     id: "p-014",
     name: "Cadeira Estofada Charlotte",
     slug: "cadeira-estofada-charlotte",
+    style: "contemporaneo",
     sku: "CAD-CHR-01",
     description:
       "Cadeira de jantar com encosto envelope estofado e costura matelassê, pés em madeira. Confortável para jantares longos.",
@@ -366,6 +380,7 @@ export const products: Product[] = [
     id: "p-015",
     name: "Buffet Toscana 4 Portas",
     slug: "buffet-toscana-4-portas",
+    style: "classico",
     sku: "BUF-TSC-4P",
     description:
       "Buffet de sala de jantar com quatro portas, prateleiras internas reguláveis e tampo resistente a calor moderado. Bom para louças e utensílios.",
@@ -389,6 +404,7 @@ export const products: Product[] = [
     id: "p-016",
     name: "Kit 2 Banquetas Altas Bar Copenhague",
     slug: "kit-2-banquetas-bar-copenhague",
+    style: "industrial",
     sku: "BNQ-BAR-KIT2",
     description:
       "Banquetas para bancada com regulagem de altura a gás, assento estofado e apoio para os pés cromado. Giro de 360°. Vendidas em par.",
@@ -414,6 +430,7 @@ export const products: Product[] = [
     id: "p-017",
     name: "Cama Box Casal Estocolmo com Baú",
     slug: "cama-box-casal-estocolmo-bau",
+    style: "contemporaneo",
     sku: "CMA-EST-BAU",
     description:
       "Cama box casal com baú de abertura por pistão, colchão de molas ensacadas com pillow top e cabeceira estofada acoplada. Aproveita o espaço embaixo da cama.",
@@ -439,6 +456,7 @@ export const products: Product[] = [
     id: "p-018",
     name: "Cama Queen Amsterdam com Cabeceira Ripada",
     slug: "cama-queen-amsterdam-cabeceira-ripada",
+    style: "minimalista",
     sku: "CMA-AMS-QN",
     description:
       "Estrutura de cama queen com cabeceira ripada em madeira e estrado de réguas ventilado. Design baixo, estilo japandi.",
@@ -462,6 +480,7 @@ export const products: Product[] = [
     id: "p-019",
     name: "Guarda-Roupa Madri 6 Portas com Espelho",
     slug: "guarda-roupa-madri-6-portas-espelho",
+    style: "moderno",
     sku: "GRD-MAD-6P",
     description:
       "Guarda-roupa de 6 portas com duas centrais espelhadas, gavetas com corrediças metálicas e cabideiros duplos. Amplo espaço interno organizado.",
@@ -487,6 +506,7 @@ export const products: Product[] = [
     id: "p-020",
     name: "Cabeceira Estofada Veludo Casal",
     slug: "cabeceira-estofada-veludo-casal",
+    style: "classico",
     sku: "CBC-VLV-CS",
     description:
       "Cabeceira avulsa estofada em veludo com botonê, fixação na parede ou atrás da cama box. Transforma o quarto sem obra.",
@@ -514,6 +534,7 @@ export const products: Product[] = [
     id: "p-021",
     name: "Par de Criados-Mudos Nórdico 2 Gavetas",
     slug: "par-criados-mudos-nordico-2-gavetas",
+    style: "moderno",
     sku: "CRM-NRD-PAR",
     description:
       "Dupla de mesas de cabeceira com duas gavetas, puxadores embutidos e pés palito inclinados. Acabamento amadeirado quente.",
@@ -537,6 +558,7 @@ export const products: Product[] = [
     id: "p-022",
     name: "Cômoda Retrô 4 Gavetas",
     slug: "comoda-retro-4-gavetas",
+    style: "classico",
     sku: "CMD-RTR-4G",
     description:
       "Cômoda de quarto com quatro gavetas amplas sobre pés palito, inspiração dos anos 60. Ótima como apoio de TV no quarto ou trocador.",
@@ -562,6 +584,7 @@ export const products: Product[] = [
     id: "p-023",
     name: "Escrivaninha Home Office Nova com Gavetas",
     slug: "escrivaninha-home-office-nova",
+    style: "minimalista",
     sku: "ESC-HMO-GV",
     description:
       "Bancada de trabalho de 1,35 m com duas gavetas, passagem de fios e organizador traseiro. Tampo resistente a arranhões e pés em L de aço.",
@@ -587,6 +610,7 @@ export const products: Product[] = [
     id: "p-024",
     name: "Cadeira de Escritório Ergonômica Ergo Pro",
     slug: "cadeira-escritorio-ergonomica-ergo-pro",
+    style: "contemporaneo",
     sku: "CAD-ERG-PRO",
     description:
       "Cadeira presidente com encosto em tela mesh, apoio lombar ajustável, apoio de cabeça e braços 3D. Mecanismo relax com trava em 4 posições. Base em nylon reforçado.",
@@ -613,6 +637,7 @@ export const products: Product[] = [
     id: "p-025",
     name: "Estante Modular Grid para Escritório",
     slug: "estante-modular-grid-escritorio",
+    style: "moderno",
     sku: "EST-GRD-MOD",
     description:
       "Sistema de nichos modulares que pode crescer na horizontal ou vertical. Mescle portas, gavetas e vãos abertos. Configuração 3x3 inclusa.",
@@ -638,6 +663,7 @@ export const products: Product[] = [
     id: "p-026",
     name: "Luminária de Piso Arco com Cúpula Metálica",
     slug: "luminaria-piso-arco",
+    style: "industrial",
     sku: "LUM-ARC-PS",
     description:
       "Luminária de piso em arco com base de mármore e cúpula orientável em alumínio. Ilumina o sofá sem ocupar mesa lateral. Bivolt, soquete E27.",
@@ -661,6 +687,7 @@ export const products: Product[] = [
     id: "p-027",
     name: "Espelho Redondo Sol Ø 80 cm",
     slug: "espelho-redondo-sol-80",
+    style: "contemporaneo",
     sku: "ESP-SOL-80",
     description:
       "Espelho decorativo redondo com moldura fina em metal e raios estilizados. Aumenta a sensação de amplitude em halls e salas.",
@@ -684,6 +711,7 @@ export const products: Product[] = [
     id: "p-028",
     name: "Tapete Berbere Geométrico 2,00 x 2,50 m",
     slug: "tapete-berbere-geometrico-200x250",
+    style: "rustico",
     sku: "TPT-BRB-2025",
     description:
       "Tapete de pelo médio com trama macia e desenho geométrico em tom neutro. Base antiderrapante, toque acolhedor para sala e quarto.",
@@ -704,6 +732,83 @@ export const products: Product[] = [
     variants: [{ name: "Tamanho", values: ["1,50 x 2,00 m", "2,00 x 2,50 m", "2,50 x 3,00 m"] }],
     rating: 4.6,
     reviewsCount: 59,
+  },
+  {
+    id: "p-029",
+    name: "Jogo de 4 Almofadas Decorativas",
+    slug: "jogo-almofadas-decorativas",
+    style: "contemporaneo",
+    sku: "ALM-KIT-4",
+    description:
+      "Conjunto de quatro almofadas 45x45 cm com capas em linho misto e enchimento de fibra siliconada. Combina texturas lisas e canaladas em tons neutros para renovar o sofá sem esforço. Capas removíveis com zíper invisível.",
+    category: "decoracao",
+    price: 249,
+    salePrice: 189,
+    images: imgs("jogo-almofadas-decorativas"),
+    stock: 60,
+    featured: false,
+    bestSeller: true,
+    material: "Capa em linho misto / enchimento em fibra siliconada",
+    colors: ["Bege", "Caramelo", "Verde", "Grafite"],
+    environment: "sala",
+    dimensions: { width: 45, height: 12, depth: 45 },
+    weightKg: 2,
+    warranty: "3 meses",
+    assembly: "Nenhuma.",
+    variants: [{ name: "Cor", values: ["Bege", "Caramelo", "Verde", "Grafite"] }],
+    rating: 4.7,
+    reviewsCount: 138,
+  },
+  {
+    id: "p-030",
+    name: "Trio de Vasos Cerâmicos Fosco",
+    slug: "trio-vasos-ceramicos-fosco",
+    style: "minimalista",
+    sku: "VAS-TRIO-03",
+    description:
+      "Três vasos de cerâmica com acabamento fosco em alturas escalonadas (12, 18 e 25 cm). Formas orgânicas para compor mesas de centro, aparadores e estantes. Vendidos como conjunto.",
+    category: "decoracao",
+    price: 320,
+    salePrice: 269,
+    images: imgs("trio-vasos-ceramicos-fosco"),
+    stock: 34,
+    featured: true,
+    new: true,
+    material: "Cerâmica esmaltada fosca",
+    colors: ["Off-white", "Terracota", "Areia"],
+    environment: "sala",
+    dimensions: { width: 25, height: 25, depth: 25 },
+    weightKg: 3,
+    warranty: "3 meses",
+    assembly: "Nenhuma.",
+    variants: [{ name: "Cor", values: ["Off-white", "Terracota", "Areia"] }],
+    rating: 4.8,
+    reviewsCount: 54,
+  },
+  {
+    id: "p-031",
+    name: "Kit 3 Quadros Decorativos com Moldura",
+    slug: "kit-3-quadros-decorativos-moldura",
+    style: "moderno",
+    sku: "QDR-KIT-03",
+    description:
+      "Conjunto de três quadros (30x40 cm) com estampas autorais de linhas minimalistas, moldura em madeira e vidro. Acompanha ganchos e gabarito de instalação para alinhar o trio na parede.",
+    category: "decoracao",
+    price: 459,
+    images: imgs("kit-3-quadros-decorativos-moldura"),
+    stock: 21,
+    featured: false,
+    new: true,
+    material: "Moldura em madeira / vidro",
+    colors: ["Natural", "Preto", "Off-white"],
+    environment: "sala",
+    dimensions: { width: 30, height: 40, depth: 2 },
+    weightKg: 4,
+    warranty: "6 meses",
+    assembly: "Instalação na parede (kit incluso).",
+    variants: [{ name: "Moldura", values: ["Natural", "Preto", "Off-white"] }],
+    rating: 4.6,
+    reviewsCount: 39,
   },
 ];
 
