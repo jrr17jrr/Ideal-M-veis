@@ -2,7 +2,12 @@ import Link from "next/link";
 import { Container } from "@/components/ui/Container";
 import { Logo } from "./Logo";
 import { Newsletter } from "@/components/home/Newsletter";
-import { FOOTER_LINKS, STORE_NAME } from "@/lib/constants";
+import {
+  FOOTER_LINKS,
+  STORE_NAME,
+  STORE_FOOTER_TAGLINE,
+  PAYMENT_METHODS,
+} from "@/lib/constants";
 import {
   InstagramIcon,
   FacebookIcon,
@@ -17,10 +22,13 @@ export function Footer() {
     <footer className="mt-20 border-t border-stone-200 bg-white">
       <Newsletter />
 
-      <Container className="grid gap-10 py-14 md:grid-cols-[1.2fr_repeat(3,1fr)]">
-        <div>
+      <Container className="grid gap-10 py-14 md:grid-cols-2 lg:grid-cols-[1.4fr_repeat(4,1fr)]">
+        <div className="md:col-span-2 lg:col-span-1">
           <Logo />
-          <p className="mt-4 max-w-xs text-sm leading-relaxed text-stone-500">
+          <p className="mt-4 max-w-xs font-display text-lg leading-snug text-stone-700">
+            {STORE_FOOTER_TAGLINE}
+          </p>
+          <p className="mt-3 max-w-xs text-sm leading-relaxed text-stone-500">
             Curadoria de móveis e decoração com design autoral, materiais
             duráveis e entrega para todo o Brasil.
           </p>
@@ -60,15 +68,28 @@ export function Footer() {
       </Container>
 
       <div className="border-t border-stone-200">
-        <Container className="flex flex-col items-center justify-between gap-4 py-6 text-xs text-stone-500 sm:flex-row">
-          <p className="flex items-center gap-1.5">
+        <Container className="flex flex-col items-center gap-4 py-6 sm:flex-row sm:justify-between">
+          <p className="flex items-center gap-1.5 text-xs text-stone-500">
             <ShieldIcon className="h-4 w-4" />
-            Ambiente seguro · Pagamentos processados com criptografia
+            Ambiente seguro · Pagamentos com criptografia
           </p>
-          <p>
-            © {year} {STORE_NAME}. Projeto de demonstração — CNPJ e dados
-            fictícios.
-          </p>
+          <ul className="flex flex-wrap items-center justify-center gap-2">
+            {PAYMENT_METHODS.map((method) => (
+              <li
+                key={method}
+                className="rounded-md border border-stone-200 bg-stone-50 px-2.5 py-1 text-[11px] font-medium text-stone-600"
+              >
+                {method}
+              </li>
+            ))}
+          </ul>
+        </Container>
+      </div>
+
+      <div className="border-t border-stone-200">
+        <Container className="py-5 text-center text-xs text-stone-400">
+          © {year} {STORE_NAME}. Projeto de demonstração — dados e informações
+          fictícios.
         </Container>
       </div>
     </footer>

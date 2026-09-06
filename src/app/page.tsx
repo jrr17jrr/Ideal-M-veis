@@ -1,7 +1,7 @@
 import { Container } from "@/components/ui/Container";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { Hero } from "@/components/home/Hero";
-import { CategoryCards } from "@/components/home/CategoryCards";
+import { CategoryShowcase } from "@/components/home/CategoryShowcase";
 import { Benefits } from "@/components/home/Benefits";
 import { PromoBanner } from "@/components/home/PromoBanner";
 import { ShopByRoom } from "@/components/home/ShopByRoom";
@@ -15,7 +15,7 @@ import {
 export default async function HomePage() {
   const [featured, bestSellers, onSale] = await Promise.all([
     getFeaturedProducts(8),
-    getBestSellers(8),
+    getBestSellers(4),
     getOnSaleProducts(8),
   ]);
 
@@ -23,18 +23,18 @@ export default async function HomePage() {
     <>
       <Hero />
 
-      <Container className="py-14">
+      <Container className="py-12 lg:py-16">
         <SectionHeader
           eyebrow="Explore"
-          title="Categorias principais"
-          description="Do sofá da sala à cadeira do escritório — encontre por ambiente."
+          title="Compre por categoria"
+          description="Encontre rápido o que você precisa para cada cômodo."
         />
         <div className="mt-8">
-          <CategoryCards />
+          <CategoryShowcase />
         </div>
       </Container>
 
-      <Container className="py-14">
+      <Container className="py-12 lg:py-16">
         <SectionHeader
           eyebrow="Seleção da casa"
           title="Produtos em destaque"
@@ -45,11 +45,11 @@ export default async function HomePage() {
         </div>
       </Container>
 
-      <section className="py-8">
+      <section className="py-6 lg:py-8">
         <PromoBanner />
       </section>
 
-      <Container className="py-14">
+      <Container className="py-12 lg:py-16">
         <SectionHeader
           eyebrow="Só por tempo limitado"
           title="Ofertas da semana"
@@ -63,7 +63,7 @@ export default async function HomePage() {
 
       <Benefits />
 
-      <Container className="py-14">
+      <Container className="py-12 lg:py-16">
         <SectionHeader
           eyebrow="Preferidos dos clientes"
           title="Mais vendidos"
@@ -74,11 +74,11 @@ export default async function HomePage() {
         </div>
       </Container>
 
-      <Container className="py-14">
+      <Container className="py-12 lg:py-16">
         <SectionHeader
           eyebrow="Inspire-se"
           title="Compre por ambiente"
-          description="Composições prontas para cada cômodo da casa."
+          description="Composições pensadas para cada espaço da casa."
         />
         <div className="mt-8">
           <ShopByRoom />

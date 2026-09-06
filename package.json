@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
-    "gen:images": "node scripts/gen-placeholders.mjs"
+    "fetch:photos": "node scripts/fetch-photos.mjs"
   },
   "dependencies": {
     "next": "16.3.4",

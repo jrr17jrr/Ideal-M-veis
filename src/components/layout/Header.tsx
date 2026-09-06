@@ -32,54 +32,38 @@ export function Header() {
     <>
       <div className="bg-stone-900 text-white">
         <Container className="flex h-9 items-center justify-center text-center text-[12px] tracking-wide">
-          Frete grátis na econômica acima de R$ 4.000 · 10% de desconto no Pix
+          Frete grátis na entrega econômica acima de R$ 4.000 · 10% de desconto no Pix
         </Container>
       </div>
 
-      <header className="sticky top-0 z-50 border-b border-stone-200 bg-canvas/90 backdrop-blur">
-        <Container className="flex h-16 items-center justify-between gap-4 lg:h-20">
-          <div className="flex items-center gap-2 lg:hidden">
-            <button
-              onClick={() => setMenuOpen(true)}
-              aria-label="Abrir menu"
-              className="-ml-2 rounded-full p-2 text-stone-700 hover:bg-stone-100"
-            >
-              <MenuIcon className="h-6 w-6" />
-            </button>
-          </div>
+      <header className="sticky top-0 z-50 border-b border-stone-200 bg-canvas/95 backdrop-blur">
+        <Container className="flex h-16 items-center gap-3 lg:h-[72px] lg:gap-6">
+          <button
+            onClick={() => setMenuOpen(true)}
+            aria-label="Abrir menu"
+            className="-ml-2 rounded-full p-2 text-stone-700 hover:bg-stone-100 lg:hidden"
+          >
+            <MenuIcon className="h-6 w-6" />
+          </button>
 
-          <Logo className="lg:flex-none" />
+          <Logo className="shrink-0" />
 
-          <nav className="hidden items-center gap-7 lg:flex">
-            {MAIN_NAV.map((item) => {
-              const active =
-                item.href === "/"
-                  ? pathname === "/"
-                  : pathname.startsWith(item.href);
-              return (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className={cn(
-                    "relative py-1 text-sm transition-colors hover:text-stone-900",
-                    active ? "text-stone-900" : "text-stone-600",
-                    item.href === "/ofertas" && "text-brand hover:text-brand-dark",
-                  )}
-                >
-                  {item.label}
-                  {active && (
-                    <span className="absolute inset-x-0 -bottom-[19px] hidden h-0.5 bg-stone-900 lg:block" />
-                  )}
-                </Link>
-              );
-            })}
-          </nav>
+          {/* Busca — visível no desktop */}
+          <button
+            onClick={() => setSearchOpen(true)}
+            className="ml-2 hidden h-11 max-w-lg flex-1 items-center gap-3 rounded-full border border-stone-300 px-4 text-left text-sm text-stone-400 transition-colors hover:border-stone-400 lg:flex"
+          >
+            <SearchIcon className="h-4 w-4 shrink-0" />
+            <span className="truncate">
+              Buscar por móveis, ambientes ou materiais…
+            </span>
+          </button>
 
-          <div className="flex items-center gap-1 sm:gap-2">
+          <div className="ml-auto flex items-center gap-0.5 sm:gap-1">
             <button
               onClick={() => setSearchOpen(true)}
               aria-label="Buscar"
-              className="rounded-full p-2 text-stone-700 hover:bg-stone-100"
+              className="rounded-full p-2 text-stone-700 hover:bg-stone-100 lg:hidden"
             >
               <SearchIcon className="h-5 w-5" />
             </button>
@@ -98,9 +82,7 @@ export function Header() {
               className="relative rounded-full p-2 text-stone-700 hover:bg-stone-100"
             >
               <HeartIcon className="h-5 w-5" />
-              {favHydrated && favCount > 0 && (
-                <Badge>{favCount}</Badge>
-              )}
+              {favHydrated && favCount > 0 && <Count>{favCount}</Count>}
             </Link>
 
             <button
@@ -110,11 +92,42 @@ export function Header() {
             >
               <BagIcon className="h-5 w-5" />
               {cartHydrated && totals.itemsCount > 0 && (
-                <Badge>{totals.itemsCount}</Badge>
+                <Count>{totals.itemsCount}</Count>
               )}
             </button>
           </div>
         </Container>
+
+        {/* Navegação de categorias — desktop */}
+        <div className="hidden border-t border-stone-200/70 lg:block">
+          <Container>
+            <nav className="flex items-center gap-8">
+              {MAIN_NAV.map((item) => {
+                const active =
+                  item.href === "/"
+                    ? pathname === "/"
+                    : pathname.startsWith(item.href);
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className={cn(
+                      "relative py-3 text-sm transition-colors hover:text-stone-900",
+                      active ? "text-stone-900" : "text-stone-600",
+                      item.href === "/ofertas" &&
+                        "font-medium text-brand hover:text-brand-dark",
+                    )}
+                  >
+                    {item.label}
+                    {active && (
+                      <span className="absolute inset-x-0 -bottom-px h-0.5 bg-stone-900" />
+                    )}
+                  </Link>
+                );
+              })}
+            </nav>
+          </Container>
+        </div>
       </header>
 
       <MobileMenu open={menuOpen} onClose={() => setMenuOpen(false)} />
@@ -123,7 +136,7 @@ export function Header() {
   );
 }
 
-function Badge({ children }: { children: React.ReactNode }) {
+function Count({ children }: { children: React.ReactNode }) {
   return (
     <span className="absolute -right-0.5 -top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-brand px-1 text-[10px] font-semibold text-white">
       {children}

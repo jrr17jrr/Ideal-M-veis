@@ -1,0 +1,175 @@
+/**
+ * Baixa fotos reais (Pexels — licença livre para uso, sem atribuição obrigatória)
+ * para `public/images/`. Uso:
+ *
+ *   node scripts/fetch-photos.mjs
+ *
+ * As fotos são versionadas no repositório para o site não depender de CDN externo.
+ * Se quiser trocar uma foto, altere o ID no MANIFEST e rode de novo.
+ */
+import { mkdirSync, writeFileSync, existsSync, statSync } from "node:fs";
+import { dirname, join } from "node:path";
+import { fileURLToPath } from "node:url";
+
+const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
+const OUT = join(ROOT, "public", "images");
+
+const px = (id, w, h) =>
+  `https://images.pexels.com/photos/${id}/pexels-photo-${id}.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=${w}&h=${h}`;
+
+/* -------------------------------------------------------------------------- */
+/*  MANIFEST — { caminho relativo em public/images : url }                     */
+/* -------------------------------------------------------------------------- */
+
+const SQ = [900, 900]; // produto (quadrado)
+const TILE = [900, 1125]; // card de categoria / ambiente (4:5)
+const WIDE = [1600, 1000]; // hero / banner (16:10)
+const WBAN = [1200, 900]; // banner lateral (4:3)
+
+const MANIFEST = {
+  /* ---------------- Hero + banners + ambientes ---------------- */
+  "hero/sala-ampla.jpg": px(5793547, ...WIDE),
+  "banners/renove-sua-casa.jpg": px(2343469, ...WBAN),
+  "banners/ofertas.jpg": px(34277650, ...WIDE),
+
+  "rooms/sala.jpg": px(34688219, ...TILE),
+  "rooms/quarto.jpg": px(8082562, ...TILE),
+  "rooms/cozinha.jpg": px(6310320, ...TILE),
+  "rooms/escritorio.jpg": px(10922370, ...TILE),
+  "rooms/decoracao.jpg": px(34438566, ...TILE),
+
+  /* ---------------- Cards "compre por categoria" ---------------- */
+  "categories/sofas.jpg": px(276746, ...TILE),
+  "categories/mesas.jpg": px(2995012, ...TILE),
+  "categories/cadeiras.jpg": px(30650069, ...TILE),
+  "categories/racks-paineis.jpg": px(1714433, ...TILE),
+  "categories/quartos.jpg": px(6903157, ...TILE),
+  "categories/escritorio.jpg": px(22711217, ...TILE),
+  "categories/decoracao.jpg": px(38094563, ...TILE),
+
+  /* Cards das 5 categorias reais do catálogo (data/categories.ts) */
+  "categories/cat-sala.jpg": px(6980724, ...TILE),
+  "categories/cat-quarto.jpg": px(6186822, ...TILE),
+  "categories/cat-cozinha.jpg": px(6748972, ...TILE),
+  "categories/cat-escritorio.jpg": px(5824550, ...TILE),
+  "categories/cat-decoracao.jpg": px(5490337, ...TILE),
+
+  /* ---------------------------- Produtos ---------------------------- */
+  // Sala
+  "products/sofa-retratil-copenhague-3-lugares.jpg": px(16501662, ...SQ),
+  "products/sofa-retratil-copenhague-3-lugares-2.jpg": px(36816986, ...SQ),
+  "products/sofa-oslo-3-lugares-boucle.jpg": px(8135275, ...SQ),
+  "products/sofa-oslo-3-lugares-boucle-2.jpg": px(3105219, ...SQ),
+  "products/sofa-lisboa-2-lugares.jpg": px(7018400, ...SQ),
+  "products/sofa-lisboa-2-lugares-2.jpg": px(6588592, ...SQ),
+  "products/poltrona-nordica-com-puff.jpg": px(4278985, ...SQ),
+  "products/poltrona-nordica-com-puff-2.jpg": px(8066334, ...SQ),
+  "products/poltrona-giratoria-pod-couro-sintetico.jpg": px(14110168, ...SQ),
+  "products/poltrona-giratoria-pod-couro-sintetico-2.jpg": px(33646085, ...SQ),
+  "products/rack-munique-tv-65.jpg": px(5710708, ...SQ),
+  "products/rack-munique-tv-65-2.jpg": px(5755711, ...SQ),
+  "products/painel-ripado-berlim-220.jpg": px(6580372, ...SQ),
+  "products/painel-ripado-berlim-220-2.jpg": px(7147296, ...SQ),
+  "products/estante-bauhaus-5-prateleiras.jpg": px(32471851, ...SQ),
+  "products/estante-bauhaus-5-prateleiras-2.jpg": px(1565245, ...SQ),
+  "products/aparador-vienna-palhinha.jpg": px(6480207, ...SQ),
+  "products/aparador-vienna-palhinha-2.jpg": px(6963787, ...SQ),
+  "products/mesa-centro-tokyo-redonda.jpg": px(6661224, ...SQ),
+  "products/mesa-centro-tokyo-redonda-2.jpg": px(30440152, ...SQ),
+
+  // Cozinha / jantar
+  "products/mesa-jantar-provence-6-lugares.jpg": px(4221404, ...SQ),
+  "products/mesa-jantar-provence-6-lugares-2.jpg": px(6310320, ...SQ),
+  "products/mesa-jantar-redonda-milano-4-lugares.jpg": px(2995012, ...SQ),
+  "products/mesa-jantar-redonda-milano-4-lugares-2.jpg": px(34357853, ...SQ),
+  "products/kit-2-cadeiras-wishbone-trigo.jpg": px(7180275, ...SQ),
+  "products/kit-2-cadeiras-wishbone-trigo-2.jpg": px(29962487, ...SQ),
+  "products/cadeira-estofada-charlotte.jpg": px(33058942, ...SQ),
+  "products/cadeira-estofada-charlotte-2.jpg": px(38750873, ...SQ),
+  "products/buffet-toscana-4-portas.jpg": px(7195588, ...SQ),
+  "products/buffet-toscana-4-portas-2.jpg": px(7195582, ...SQ),
+  "products/kit-2-banquetas-bar-copenhague.jpg": px(5530255, ...SQ),
+  "products/kit-2-banquetas-bar-copenhague-2.jpg": px(38369488, ...SQ),
+
+  // Quarto
+  "products/cama-box-casal-estocolmo-bau.jpg": px(6903214, ...SQ),
+  "products/cama-box-casal-estocolmo-bau-2.jpg": px(6489093, ...SQ),
+  "products/cama-queen-amsterdam-cabeceira-ripada.jpg": px(6934170, ...SQ),
+  "products/cama-queen-amsterdam-cabeceira-ripada-2.jpg": px(8135505, ...SQ),
+  "products/guarda-roupa-madri-6-portas-espelho.jpg": px(6508343, ...SQ),
+  "products/guarda-roupa-madri-6-portas-espelho-2.jpg": px(7535012, ...SQ),
+  "products/cabeceira-estofada-veludo-casal.jpg": px(34574606, ...SQ),
+  "products/cabeceira-estofada-veludo-casal-2.jpg": px(7511702, ...SQ),
+  "products/par-criados-mudos-nordico-2-gavetas.jpg": px(9819647, ...SQ),
+  "products/par-criados-mudos-nordico-2-gavetas-2.jpg": px(2082095, ...SQ),
+  "products/comoda-retro-4-gavetas.jpg": px(17271982, ...SQ),
+  "products/comoda-retro-4-gavetas-2.jpg": px(14172822, ...SQ),
+
+  // Escritório
+  "products/escrivaninha-home-office-nova.jpg": px(36123565, ...SQ),
+  "products/escrivaninha-home-office-nova-2.jpg": px(373904, ...SQ),
+  "products/cadeira-escritorio-ergonomica-ergo-pro.jpg": px(12269763, ...SQ),
+  "products/cadeira-escritorio-ergonomica-ergo-pro-2.jpg": px(5483245, ...SQ),
+  "products/estante-modular-grid-escritorio.jpg": px(7167083, ...SQ),
+  "products/estante-modular-grid-escritorio-2.jpg": px(34438566, ...SQ),
+
+  // Decoração
+  "products/luminaria-piso-arco.jpg": px(11850174, ...SQ),
+  "products/luminaria-piso-arco-2.jpg": px(6078545, ...SQ),
+  "products/espelho-redondo-sol-80.jpg": px(8218186, ...SQ),
+  "products/espelho-redondo-sol-80-2.jpg": px(15269290, ...SQ),
+  "products/tapete-berbere-geometrico-200x250.jpg": px(6835168, ...SQ),
+  "products/tapete-berbere-geometrico-200x250-2.jpg": px(18038065, ...SQ),
+};
+
+/* -------------------------------------------------------------------------- */
+
+async function download(url, dest, tries = 3) {
+  for (let i = 1; i <= tries; i++) {
+    try {
+      const res = await fetch(url, {
+        headers: { "User-Agent": "Mozilla/5.0 (build script)" },
+      });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const buf = Buffer.from(await res.arrayBuffer());
+      if (buf.length < 5000) throw new Error(`arquivo muito pequeno (${buf.length}b)`);
+      mkdirSync(dirname(dest), { recursive: true });
+      writeFileSync(dest, buf);
+      return buf.length;
+    } catch (err) {
+      if (i === tries) throw err;
+      await new Promise((r) => setTimeout(r, 800 * i));
+    }
+  }
+}
+
+const force = process.argv.includes("--force");
+let ok = 0;
+let bytes = 0;
+const failed = [];
+
+for (const [rel, url] of Object.entries(MANIFEST)) {
+  const dest = join(OUT, rel);
+  if (!force && existsSync(dest) && statSync(dest).size > 5000) {
+    ok++;
+    bytes += statSync(dest).size;
+    continue;
+  }
+  try {
+    const size = await download(url, dest);
+    ok++;
+    bytes += size;
+    process.stdout.write(".");
+  } catch (err) {
+    failed.push(`${rel}  <-  ${url}\n    ${err.message}`);
+    process.stdout.write("x");
+  }
+}
+
+console.log(
+  `\n\n✓ ${ok}/${Object.keys(MANIFEST).length} fotos (${(bytes / 1e6).toFixed(1)} MB) em public/images/`,
+);
+if (failed.length) {
+  console.log(`\n✗ ${failed.length} falharam:\n` + failed.join("\n"));
+  process.exit(1);
+}

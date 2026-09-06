@@ -2,15 +2,13 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   images: {
-    // SVGs are used only for local development placeholder art.
-    dangerouslyAllowSVG: true,
-    contentDispositionType: "attachment",
-    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
-    // Domains liberados para quando as imagens reais forem plugadas
-    // (fotos de produtos hospedadas no Supabase Storage, Unsplash, etc).
+    // As fotos ficam versionadas em `public/images/` (baixadas por
+    // `scripts/fetch-photos.mjs`). Os domínios abaixo ficam liberados para
+    // quando as imagens reais forem servidas do Supabase Storage / CDN.
     remotePatterns: [
       { protocol: "https", hostname: "images.unsplash.com" },
       { protocol: "https", hostname: "plus.unsplash.com" },
+      { protocol: "https", hostname: "images.pexels.com" },
       { protocol: "https", hostname: "*.supabase.co" },
     ],
   },

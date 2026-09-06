@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { SHOP_BY_ROOM } from "@/lib/constants";
+import { ArrowRight } from "@/components/ui/icons";
 
 export function ShopByRoom() {
   return (
@@ -9,19 +10,23 @@ export function ShopByRoom() {
         <Link
           key={room.href}
           href={room.href}
-          className="group relative flex aspect-[4/3] items-end overflow-hidden rounded-xl bg-stone-100"
+          className="group relative flex aspect-[4/5] flex-col justify-end overflow-hidden rounded-2xl bg-stone-100 p-5 sm:aspect-[4/3] lg:aspect-[3/4]"
         >
           <Image
             src={room.image}
-            alt=""
+            alt={room.label}
             fill
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 300px"
-            className="object-cover transition-transform duration-500 group-hover:scale-105"
+            className="object-cover transition-transform duration-700 group-hover:scale-105"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-stone-900/55 to-transparent" />
-          <span className="relative m-4 inline-flex items-center gap-1.5 rounded-full bg-white/95 px-3 py-1.5 text-xs font-medium text-stone-900">
-            {room.label}
-          </span>
+          <div className="absolute inset-0 bg-gradient-to-t from-stone-950/75 via-stone-950/20 to-transparent" />
+          <div className="relative">
+            <h3 className="font-display text-xl text-white">{room.label}</h3>
+            <span className="mt-1 inline-flex items-center gap-1.5 text-sm text-white/90">
+              Ver produtos
+              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+            </span>
+          </div>
         </Link>
       ))}
     </div>

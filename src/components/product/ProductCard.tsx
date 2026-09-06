@@ -4,7 +4,12 @@ import Image from "next/image";
 import Link from "next/link";
 import type { Product } from "@/types";
 import { cn } from "@/lib/cn";
-import { discountPercent, formatCurrency, formatInstallment } from "@/lib/format";
+import {
+  discountPercent,
+  formatCurrency,
+  formatInstallment,
+  pixPrice,
+} from "@/lib/format";
 import { Badge } from "@/components/ui/Badge";
 import { FavoriteButton } from "./FavoriteButton";
 import { useCart } from "@/context/CartContext";
@@ -90,17 +95,20 @@ export function ProductCard({
           <h3 className="line-clamp-2 text-sm font-medium leading-snug text-stone-900">
             {product.name}
           </h3>
-          <div className="mt-1 flex items-baseline gap-2">
+          <div className="mt-1.5 flex items-baseline gap-2">
             {product.salePrice != null && (
               <span className="text-xs text-stone-400 line-through">
                 {formatCurrency(product.price)}
               </span>
             )}
-            <span className="text-base font-semibold text-stone-900">
+            <span className="text-lg font-semibold text-stone-900">
               {formatCurrency(current)}
             </span>
           </div>
           <p className="text-xs text-stone-500">{formatInstallment(current)}</p>
+          <p className="text-xs font-medium text-emerald-700">
+            {formatCurrency(pixPrice(current))} no Pix
+          </p>
         </div>
       </Link>
 

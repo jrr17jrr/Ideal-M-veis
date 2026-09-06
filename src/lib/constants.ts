@@ -78,50 +78,81 @@ export interface Benefit {
 export const BENEFITS: Benefit[] = [
   {
     title: "Compra segura",
-    description: "Ambiente protegido e dados criptografados em toda a jornada.",
+    description: "Ambiente protegido e dados criptografados.",
     icon: "shield",
   },
   {
-    title: "Parcele em até 12x",
-    description: "Sem juros no cartão ou 10% de desconto no Pix.",
+    title: "Até 12x sem juros",
+    description: "No cartão, ou 10% de desconto no Pix.",
     icon: "card",
   },
   {
     title: "Entrega para todo o Brasil",
-    description: "Logística própria nas capitais e transportadora no interior.",
+    description: "Logística própria nas capitais.",
     icon: "truck",
   },
   {
-    title: "Atendimento humano",
-    description: "Especialistas em ambientação de segunda a sábado.",
+    title: "Atendimento especializado",
+    description: "Consultoria de ambientação de seg. a sáb.",
     icon: "headset",
   },
 ];
 
-export const SHOP_BY_ROOM: { label: string; href: string; image: string }[] = [
-  { label: "Sala de estar", href: "/categoria/sala", image: "/images/rooms/sala.svg" },
-  { label: "Quarto", href: "/categoria/quarto", image: "/images/rooms/quarto.svg" },
-  { label: "Cozinha e jantar", href: "/categoria/cozinha", image: "/images/rooms/cozinha.svg" },
-  { label: "Home office", href: "/categoria/escritorio", image: "/images/rooms/escritorio.svg" },
+/** Seção "Compre por categoria" da home — cards com foto por tipo de produto. */
+export const CATEGORY_SHOWCASE: {
+  label: string;
+  href: string;
+  image: string;
+}[] = [
+  { label: "Sofás", href: "/produtos?q=sof%C3%A1", image: "/images/categories/sofas.jpg" },
+  { label: "Mesas", href: "/produtos?q=mesa", image: "/images/categories/mesas.jpg" },
+  { label: "Cadeiras", href: "/produtos?q=cadeira", image: "/images/categories/cadeiras.jpg" },
+  { label: "Racks e painéis", href: "/produtos?q=rack", image: "/images/categories/racks-paineis.jpg" },
+  { label: "Quartos", href: "/categoria/quarto", image: "/images/categories/quartos.jpg" },
+  { label: "Escritório", href: "/categoria/escritorio", image: "/images/categories/escritorio.jpg" },
+  { label: "Decoração", href: "/categoria/decoracao", image: "/images/categories/decoracao.jpg" },
 ];
+
+/** Seção "Compre por ambiente" da home — cards grandes de ambiente. */
+export const SHOP_BY_ROOM: { label: string; href: string; image: string }[] = [
+  { label: "Sala de estar", href: "/categoria/sala", image: "/images/rooms/sala.jpg" },
+  { label: "Quarto", href: "/categoria/quarto", image: "/images/rooms/quarto.jpg" },
+  { label: "Cozinha e Jantar", href: "/categoria/cozinha", image: "/images/rooms/cozinha.jpg" },
+  { label: "Home Office", href: "/categoria/escritorio", image: "/images/rooms/escritorio.jpg" },
+];
+
+export const STORE_FOOTER_TAGLINE =
+  "Transformando sua casa em um lugar ainda melhor.";
 
 export const FOOTER_LINKS: { title: string; links: { label: string; href: string }[] }[] = [
   {
-    title: "Institucional",
+    title: "Categorias",
     links: [
-      { label: "Sobre a loja", href: "/" },
-      { label: "Nossas lojas", href: "/" },
-      { label: "Trabalhe conosco", href: "/" },
-      { label: "Blog de decoração", href: "/" },
+      { label: "Sala", href: "/categoria/sala" },
+      { label: "Quarto", href: "/categoria/quarto" },
+      { label: "Cozinha e Jantar", href: "/categoria/cozinha" },
+      { label: "Escritório", href: "/categoria/escritorio" },
+      { label: "Decoração", href: "/categoria/decoracao" },
+      { label: "Ofertas", href: "/ofertas" },
     ],
   },
   {
-    title: "Ajuda",
+    title: "Atendimento",
     links: [
       { label: "Central de atendimento", href: "/" },
       { label: "Prazos e entregas", href: "/" },
       { label: "Trocas e devoluções", href: "/" },
       { label: "Montagem", href: "/" },
+      { label: "Perguntas frequentes", href: "/" },
+    ],
+  },
+  {
+    title: "Institucional",
+    links: [
+      { label: "Sobre a Ideal Móveis", href: "/" },
+      { label: "Nossas lojas", href: "/" },
+      { label: "Trabalhe conosco", href: "/" },
+      { label: "Blog de decoração", href: "/" },
     ],
   },
   {
@@ -133,6 +164,16 @@ export const FOOTER_LINKS: { title: string; links: { label: string; href: string
       { label: "Endereços", href: "/minha-conta" },
     ],
   },
+];
+
+/** Formas de pagamento exibidas no footer (apenas visual). */
+export const PAYMENT_METHODS = [
+  "Pix",
+  "Visa",
+  "Mastercard",
+  "Elo",
+  "American Express",
+  "Boleto",
 ];
 
 /** Chaves usadas no localStorage. */

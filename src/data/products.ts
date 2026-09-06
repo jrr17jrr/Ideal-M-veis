@@ -10,12 +10,16 @@ import type { Product } from "@/types";
  * Futuro: tabelas `products`, `product_images`, `product_variants`.
  */
 
-/** Helper para montar os 3 caminhos de imagem placeholder de um produto. */
-function imgs(slug: string, count = 3): string[] {
-  return Array.from(
-    { length: count },
-    (_, i) => `/images/products/${slug}-${i + 1}.svg`,
-  );
+/**
+ * Fotos do produto. Ficam em `public/images/products/` (baixadas por
+ * `scripts/fetch-photos.mjs` — fotos reais do Pexels, licença livre).
+ * Cada produto tem `<slug>.jpg` (principal) e `<slug>-2.jpg` (secundária).
+ */
+function imgs(slug: string): string[] {
+  return [
+    `/images/products/${slug}.jpg`,
+    `/images/products/${slug}-2.jpg`,
+  ];
 }
 
 export const products: Product[] = [

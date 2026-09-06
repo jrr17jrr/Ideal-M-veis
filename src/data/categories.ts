@@ -10,35 +10,35 @@ export const categories: Category[] = [
     name: "Sala",
     description:
       "Sofás, poltronas, racks e painéis para montar uma sala de estar acolhedora.",
-    image: "/images/categories/sala.svg",
+    image: "/images/categories/cat-sala.jpg",
   },
   {
     slug: "quarto",
     name: "Quarto",
     description:
       "Camas, guarda-roupas, cabeceiras e criados-mudos com design atemporal.",
-    image: "/images/categories/quarto.svg",
+    image: "/images/categories/cat-quarto.jpg",
   },
   {
     slug: "cozinha",
     name: "Cozinha",
     description:
       "Mesas de jantar, cadeiras, aparadores e buffets para reunir a família.",
-    image: "/images/categories/cozinha.svg",
+    image: "/images/categories/cat-cozinha.jpg",
   },
   {
     slug: "escritorio",
     name: "Escritório",
     description:
       "Escrivaninhas, cadeiras ergonômicas e estantes para um home office produtivo.",
-    image: "/images/categories/escritorio.svg",
+    image: "/images/categories/cat-escritorio.jpg",
   },
   {
     slug: "decoracao",
     name: "Decoração",
     description:
       "Luminárias, espelhos, tapetes e objetos para dar personalidade ao ambiente.",
-    image: "/images/categories/decoracao.svg",
+    image: "/images/categories/cat-decoracao.jpg",
   },
 ];
 

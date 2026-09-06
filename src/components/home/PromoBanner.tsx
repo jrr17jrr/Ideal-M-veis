@@ -2,30 +2,35 @@ import Image from "next/image";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 
+/** Banner intermediário "Renove sua casa" — composição imagem + texto. */
 export function PromoBanner() {
   return (
     <Container>
-      <div className="relative overflow-hidden rounded-2xl bg-stone-900">
-        <Image
-          src="/images/lifestyle/promo.svg"
-          alt=""
-          fill
-          sizes="(max-width: 1280px) 100vw, 1216px"
-          className="object-cover opacity-60"
-        />
-        <div className="relative flex flex-col items-start gap-4 px-6 py-14 sm:px-14 sm:py-20 lg:max-w-xl">
-          <p className="text-xs font-semibold uppercase tracking-[0.24em] text-brand-light">
+      <div className="grid overflow-hidden rounded-2xl border border-stone-200 bg-white lg:grid-cols-2">
+        <div className="relative min-h-[240px] lg:min-h-[420px]">
+          <Image
+            src="/images/banners/renove-sua-casa.jpg"
+            alt="Ambiente de sala elegante com poltrona e iluminação aconchegante"
+            fill
+            sizes="(max-width: 1024px) 100vw, 50vw"
+            className="object-cover"
+          />
+        </div>
+        <div className="flex flex-col items-start justify-center gap-4 p-8 sm:p-12 lg:p-16">
+          <p className="text-xs font-semibold uppercase tracking-[0.22em] text-brand">
             Semana do design
           </p>
-          <h2 className="text-3xl text-white sm:text-4xl">
-            Até 30% off em sofás e poltronas selecionados
+          <h2 className="text-3xl text-stone-900 sm:text-4xl">
+            Renove sua casa com até{" "}
+            <span className="text-brand">30% OFF</span>
           </h2>
-          <p className="text-sm text-stone-300">
-            Condições válidas enquanto durarem os estoques. Parcele em até 12x
-            sem juros ou economize 10% pagando no Pix.
+          <p className="text-sm text-stone-600 sm:text-base">
+            Aproveite condições especiais em sofás, mesas e estantes selecionados
+            para transformar seus ambientes. Parcele em até 12x sem juros ou
+            economize 10% no Pix.
           </p>
-          <Button href="/ofertas" size="lg" variant="secondary" className="mt-2">
-            Aproveitar ofertas
+          <Button href="/ofertas" size="lg" className="mt-2">
+            Ver ofertas
           </Button>
         </div>
       </div>

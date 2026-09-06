@@ -20,7 +20,7 @@ para isso.
 
 ```bash
 npm install
-npm run gen:images     # gera as imagens placeholder em public/images/ (já versionadas)
+npm run fetch:photos   # (opcional) rebaixa as fotos de public/images/ — já versionadas
 npm run dev            # http://localhost:3000
 ```
 
@@ -97,7 +97,7 @@ src/
 ├── hooks/                      # useMediaQuery, useDebouncedValue, useBodyScrollLock
 └── types/                      # Product, CartItem, Order, OrderItem, Address, Customer, Payment...
 
-scripts/gen-placeholders.mjs    # gera os SVGs de public/images/
+scripts/fetch-photos.mjs        # baixa as fotos reais (Pexels) para public/images/
 docs/backend-plan.md            # plano de tabelas do Supabase + fluxo do Mercado Pago
 ```
 
@@ -163,14 +163,27 @@ Passo a passo detalhado em [`docs/backend-plan.md`](docs/backend-plan.md).
 
 ## Imagens
 
-As imagens em `public/images/**` são **SVGs placeholder** gerados por
-`scripts/gen-placeholders.mjs` (composições abstratas neutras). Para usar fotos
-reais:
+As imagens em `public/images/**` são **fotos reais do [Pexels](https://www.pexels.com)**
+(licença livre para uso, sem atribuição obrigatória), baixadas e versionadas no
+repositório por `scripts/fetch-photos.mjs` (o manifesto de IDs fica no próprio
+script). Organização:
 
-- Suba as fotos (Unsplash, Supabase Storage, CDN...) e atualize as URLs em
-  `src/data/products.ts` / `src/lib/constants.ts`.
-- Domínios externos já liberados em `next.config.ts` (`images.remotePatterns`):
-  `images.unsplash.com`, `plus.unsplash.com`, `*.supabase.co`. Adicione outros lá.
+```
+public/images/
+├── hero/          # foto grande da home
+├── banners/       # banners promocionais
+├── rooms/         # "compre por ambiente"
+├── categories/    # "compre por categoria" + cards de categoria do catálogo
+└── products/      # 2 fotos por produto: <slug>.jpg e <slug>-2.jpg
+```
+
+Para trocar uma foto: mude o ID no `MANIFEST` de `scripts/fetch-photos.mjs`,
+apague o arquivo antigo e rode `npm run fetch:photos`.
+
+Quando as fotos definitivas do cliente existirem, basta substituir os arquivos
+em `public/images/` mantendo os mesmos nomes — nenhum código muda. Para servir de
+CDN externo (Supabase Storage etc.), os domínios já estão liberados em
+`next.config.ts` (`images.remotePatterns`).
 
 ---
 

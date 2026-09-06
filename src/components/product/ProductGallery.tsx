@@ -18,9 +18,31 @@ export function ProductGallery({
   const go = (next: number) => setIndex((next + total) % total);
 
   return (
-    <div className="flex flex-col gap-3 lg:flex-row-reverse lg:gap-4">
+    <div className="flex flex-col gap-3 lg:flex-row lg:gap-4">
+      {/* Miniaturas — à esquerda no desktop */}
+      {total > 1 && (
+        <div className="order-2 flex gap-3 lg:order-1 lg:flex-col">
+          {images.map((src, i) => (
+            <button
+              key={src}
+              onClick={() => setIndex(i)}
+              aria-label={`Ver imagem ${i + 1}`}
+              aria-current={i === index}
+              className={cn(
+                "relative h-16 w-16 shrink-0 overflow-hidden rounded-lg bg-stone-100 ring-2 transition sm:h-20 sm:w-20",
+                i === index
+                  ? "ring-stone-900"
+                  : "ring-transparent hover:ring-stone-300",
+              )}
+            >
+              <Image src={src} alt="" fill sizes="80px" className="object-cover" />
+            </button>
+          ))}
+        </div>
+      )}
+
       {/* Imagem principal */}
-      <div className="relative aspect-square w-full overflow-hidden rounded-2xl bg-stone-100 lg:flex-1">
+      <div className="relative order-1 aspect-square w-full overflow-hidden rounded-2xl bg-stone-100 lg:order-2 lg:flex-1">
         <Image
           key={images[index]}
           src={images[index]}
@@ -48,7 +70,6 @@ export function ProductGallery({
               <ChevronRight className="h-5 w-5" />
             </button>
 
-            {/* Dots (mobile) */}
             <div className="absolute inset-x-0 bottom-3 flex justify-center gap-1.5 lg:hidden">
               {images.map((_, i) => (
                 <button
@@ -65,26 +86,6 @@ export function ProductGallery({
           </>
         )}
       </div>
-
-      {/* Miniaturas (desktop) */}
-      {total > 1 && (
-        <div className="hidden gap-3 lg:flex lg:flex-col">
-          {images.map((src, i) => (
-            <button
-              key={src}
-              onClick={() => setIndex(i)}
-              aria-label={`Ver imagem ${i + 1}`}
-              aria-current={i === index}
-              className={cn(
-                "relative h-20 w-20 shrink-0 overflow-hidden rounded-xl bg-stone-100 ring-2 transition",
-                i === index ? "ring-stone-900" : "ring-transparent hover:ring-stone-300",
-              )}
-            >
-              <Image src={src} alt="" fill sizes="80px" className="object-cover" />
-            </button>
-          ))}
-        </div>
-      )}
     </div>
   );
 }
