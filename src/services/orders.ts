@@ -18,7 +18,7 @@ import type {
 import { SHIPPING_OPTIONS } from "@/data/shipping";
 import { mockCustomer } from "@/data/user";
 
-const SESSION_KEY = "atelier.lastOrder.v1";
+const SESSION_KEY = "ideal-moveis.lastOrder.v1";
 
 export async function listOrders(): Promise<Order[]> {
   return [...mockOrders].sort(

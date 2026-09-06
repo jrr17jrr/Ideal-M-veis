@@ -42,7 +42,7 @@ function delay<T>(value: T): Promise<T> {
 function fakeSession(
   email: string,
   firstName = "Cliente",
-  lastName = "Atelier",
+  lastName = "Ideal",
 ): AuthSession {
   return {
     user: {

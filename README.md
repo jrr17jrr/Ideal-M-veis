@@ -1,4 +1,4 @@
-# Atelier Móveis — Front-end do e-commerce
+# Ideal Móveis — Front-end do e-commerce
 
 Loja de móveis e decoração construída com **Next.js (App Router) + TypeScript +
 Tailwind CSS**. Toda a experiência de compra funciona localmente (catálogo,
@@ -6,9 +6,8 @@ filtros, busca, carrinho, favoritos, checkout). Banco de dados, autenticação
 real e pagamentos serão conectados depois — a arquitetura já está preparada
 para isso.
 
-> O nome **"Atelier Móveis"**, o logo tipográfico e as cores são **provisórios**.
-> Troque tudo em `src/lib/constants.ts` (nome/textos) e `src/app/globals.css`
-> (paleta, no bloco `@theme`).
+> O logo tipográfico e as cores ainda são **provisórios**. Ajuste o nome/textos
+> em `src/lib/constants.ts` e a paleta em `src/app/globals.css` (bloco `@theme`).
 
 ---
 

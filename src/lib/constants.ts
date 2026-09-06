@@ -1,7 +1,7 @@
 import type { CategorySlug } from "@/types";
 
-/** Nome provisório da loja — trocar aqui quando a marca for definida. */
-export const STORE_NAME = "Atelier Móveis";
+/** Nome da loja. */
+export const STORE_NAME = "Ideal Móveis";
 export const STORE_TAGLINE = "Móveis de design para viver bem";
 export const STORE_DESCRIPTION =
   "Loja de móveis e decoração com curadoria de design. Sofás, mesas, cadeiras, guarda-roupas e peças de decoração com entrega para todo o Brasil.";
@@ -137,7 +137,7 @@ export const FOOTER_LINKS: { title: string; links: { label: string; href: string
 
 /** Chaves usadas no localStorage. */
 export const STORAGE_KEYS = {
-  cart: "atelier.cart.v1",
-  favorites: "atelier.favorites.v1",
-  session: "atelier.session.v1",
+  cart: "ideal-moveis.cart.v1",
+  favorites: "ideal-moveis.favorites.v1",
+  session: "ideal-moveis.session.v1",
 } as const;
