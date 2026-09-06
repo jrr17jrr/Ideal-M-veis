@@ -6,8 +6,44 @@ export const STORE_TAGLINE = "Móveis de design para viver bem";
 export const STORE_DESCRIPTION =
   "Loja de móveis e decoração com curadoria de design. Sofás, mesas, cadeiras, guarda-roupas e peças de decoração com entrega para todo o Brasil.";
 
-export const SITE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+/**
+ * URL pública canônica do site — usada em `metadataBase`, Open Graph, sitemap e
+ * JSON-LD.
+ *
+ * Ordem de resolução (o primeiro valor válido vence):
+ *  1. `NEXT_PUBLIC_SITE_URL` — definida manualmente; adiciona `https://` se faltar
+ *  2. `VERCEL_PROJECT_PRODUCTION_URL` — domínio de produção na Vercel (sempre https)
+ *  3. `VERCEL_URL` — URL do deploy atual na Vercel (preview, sempre https)
+ *  4. `http://localhost:3000` — desenvolvimento / fallback seguro
+ *
+ * Nunca retorna string vazia nem valor inválido, então `new URL(SITE_URL)` é
+ * sempre seguro (não usamos `new URL("")`).
+ */
+function resolveSiteUrl(): string {
+  const candidates = [
+    process.env.NEXT_PUBLIC_SITE_URL,
+    process.env.VERCEL_PROJECT_PRODUCTION_URL,
+    process.env.VERCEL_URL,
+  ];
+
+  for (const raw of candidates) {
+    const value = raw?.trim();
+    if (!value) continue;
+    const withProtocol = /^https?:\/\//i.test(value)
+      ? value
+      : `https://${value}`;
+    try {
+      // Normaliza (valida a URL e remove barra final).
+      return new URL(withProtocol).toString().replace(/\/$/, "");
+    } catch {
+      // valor malformado — tenta o próximo candidato
+    }
+  }
+
+  return "http://localhost:3000";
+}
+
+export const SITE_URL = resolveSiteUrl();
 
 export interface NavItem {
   label: string;
