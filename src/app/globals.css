@@ -5,17 +5,21 @@
 /*  Troque apenas os valores abaixo para reposicionar a marca (cores/fontes).  */
 /* -------------------------------------------------------------------------- */
 @theme {
-  /* Destaque quente (caramelo / terracota) */
-  --color-brand: #bd7350;
-  --color-brand-dark: #9a5636;
-  --color-brand-light: #e0a879;
+  /* Destaque quente (caramelo / terracota) — vivo, com presença */
+  --color-brand: #c9793e;
+  --color-brand-dark: #a85f2e;
+  --color-brand-light: #e6a875;
 
   /* Neutros quentes */
-  --color-canvas: #faf7f2;
+  --color-canvas: #f8f4ec;
   --color-surface: #ffffff;
 
+  /* Marrom escuro rico — barra superior / UI escura */
+  --color-espresso: #3a281c;
+  --color-espresso-light: #4d3625;
+
   /* Verde oliva muito escuro — uso pontual em banners */
-  --color-olive: #2e3227;
+  --color-olive: #2c3123;
   --color-olive-light: #3f4636;
 
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;

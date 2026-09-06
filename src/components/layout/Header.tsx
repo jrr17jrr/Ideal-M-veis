@@ -31,13 +31,13 @@ export function Header() {
   return (
     <>
       {/* Barra superior */}
-      <div className="bg-stone-900 text-white">
+      <div className="bg-espresso text-white">
         <Container className="flex h-9 items-center overflow-x-auto no-scrollbar">
-          <ul className="mx-auto flex items-center whitespace-nowrap text-[11.5px] tracking-wide text-stone-300">
+          <ul className="mx-auto flex items-center whitespace-nowrap text-[11.5px] tracking-wide text-white/70">
             {TOP_BAR_ITEMS.map((item, i) => (
               <li key={item} className="flex items-center">
                 {i > 0 && (
-                  <span aria-hidden className="mx-3 h-1 w-1 rounded-full bg-stone-600 sm:mx-4" />
+                  <span aria-hidden className="mx-3 h-1 w-1 rounded-full bg-brand/70 sm:mx-4" />
                 )}
                 {item}
               </li>
@@ -60,7 +60,7 @@ export function Header() {
 
           <button
             onClick={() => setSearchOpen(true)}
-            className="ml-2 hidden h-11 max-w-md flex-1 items-center gap-3 rounded-full border border-stone-300 px-4 text-left text-sm text-stone-400 transition-colors hover:border-stone-400 lg:flex"
+            className="ml-3 hidden h-11 max-w-xl flex-1 items-center gap-3 rounded-full border border-stone-300 px-5 text-left text-sm text-stone-400 transition-colors hover:border-brand lg:flex"
           >
             <SearchIcon className="h-4 w-4 shrink-0" />
             <span className="truncate">Buscar por móveis, ambientes ou materiais…</span>
@@ -108,7 +108,7 @@ export function Header() {
         {/* Navegação de categorias — desktop */}
         <div className="hidden border-t border-stone-200/70 lg:block">
           <Container className="overflow-x-auto no-scrollbar">
-            <nav className="flex items-center gap-x-6 whitespace-nowrap">
+            <nav className="flex items-center gap-x-7 whitespace-nowrap xl:gap-x-9">
               {MAIN_NAV.map((item) => {
                 const base = item.href.split(/[?#]/)[0];
                 const active =
@@ -121,7 +121,7 @@ export function Header() {
                     key={item.label}
                     href={item.href}
                     className={cn(
-                      "relative py-3 text-[13px] transition-colors hover:text-stone-900",
+                      "relative py-3.5 text-[13.5px] transition-colors hover:text-stone-900",
                       active ? "text-stone-900" : "text-stone-600",
                       item.href === "/ofertas" &&
                         "font-semibold text-brand hover:text-brand-dark",
