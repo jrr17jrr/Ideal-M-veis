@@ -1,0 +1,455 @@
+{
+  "source": "Generated specifically for Ideal Móveis mock front-end",
+  "products": [
+    {
+      "category": "sofas",
+      "slug": "sofa-retratil-copenhague-3-lugares",
+      "variants": [
+        {
+          "color": "bege",
+          "file": "sofas/sofa-retratil-copenhague-3-lugares/bege.jpg"
+        },
+        {
+          "color": "cinza",
+          "file": "sofas/sofa-retratil-copenhague-3-lugares/cinza.jpg"
+        },
+        {
+          "color": "preto",
+          "file": "sofas/sofa-retratil-copenhague-3-lugares/preto.jpg"
+        }
+      ]
+    },
+    {
+      "category": "sofas",
+      "slug": "sofa-oslo-3-lugares-boucle",
+      "variants": [
+        {
+          "color": "off-white",
+          "file": "sofas/sofa-oslo-3-lugares-boucle/off-white.jpg"
+        },
+        {
+          "color": "cinza",
+          "file": "sofas/sofa-oslo-3-lugares-boucle/cinza.jpg"
+        },
+        {
+          "color": "marrom",
+          "file": "sofas/sofa-oslo-3-lugares-boucle/marrom.jpg"
+        }
+      ]
+    },
+    {
+      "category": "sofas",
+      "slug": "sofa-lisboa-2-lugares",
+      "variants": [
+        {
+          "color": "bege",
+          "file": "sofas/sofa-lisboa-2-lugares/bege.jpg"
+        },
+        {
+          "color": "terracota",
+          "file": "sofas/sofa-lisboa-2-lugares/terracota.jpg"
+        },
+        {
+          "color": "verde",
+          "file": "sofas/sofa-lisboa-2-lugares/verde.jpg"
+        }
+      ]
+    },
+    {
+      "category": "poltronas",
+      "slug": "poltrona-nordica-com-puff",
+      "variants": [
+        {
+          "color": "bege",
+          "file": "poltronas/poltrona-nordica-com-puff/bege.jpg"
+        },
+        {
+          "color": "terracota",
+          "file": "poltronas/poltrona-nordica-com-puff/terracota.jpg"
+        },
+        {
+          "color": "verde",
+          "file": "poltronas/poltrona-nordica-com-puff/verde.jpg"
+        }
+      ]
+    },
+    {
+      "category": "poltronas",
+      "slug": "poltrona-giratoria-pod-couro-sintetico",
+      "variants": [
+        {
+          "color": "cinza",
+          "file": "poltronas/poltrona-giratoria-pod-couro-sintetico/cinza.jpg"
+        },
+        {
+          "color": "off-white",
+          "file": "poltronas/poltrona-giratoria-pod-couro-sintetico/off-white.jpg"
+        },
+        {
+          "color": "marrom",
+          "file": "poltronas/poltrona-giratoria-pod-couro-sintetico/marrom.jpg"
+        }
+      ]
+    },
+    {
+      "category": "poltronas",
+      "slug": "espreguicadeira-deck-malibu",
+      "variants": [
+        {
+          "color": "rosa",
+          "file": "poltronas/espreguicadeira-deck-malibu/rosa.jpg"
+        },
+        {
+          "color": "mostarda",
+          "file": "poltronas/espreguicadeira-deck-malibu/mostarda.jpg"
+        },
+        {
+          "color": "azul",
+          "file": "poltronas/espreguicadeira-deck-malibu/azul.jpg"
+        }
+      ]
+    },
+    {
+      "category": "cadeiras",
+      "slug": "kit-2-cadeiras-wishbone-trigo",
+      "variants": [
+        {
+          "color": "bege",
+          "file": "cadeiras/kit-2-cadeiras-wishbone-trigo/bege.jpg"
+        },
+        {
+          "color": "caramelo",
+          "file": "cadeiras/kit-2-cadeiras-wishbone-trigo/caramelo.jpg"
+        },
+        {
+          "color": "preto",
+          "file": "cadeiras/kit-2-cadeiras-wishbone-trigo/preto.jpg"
+        }
+      ]
+    },
+    {
+      "category": "cadeiras",
+      "slug": "cadeira-estofada-charlotte",
+      "variants": [
+        {
+          "color": "off-white",
+          "file": "cadeiras/cadeira-estofada-charlotte/off-white.jpg"
+        },
+        {
+          "color": "cinza",
+          "file": "cadeiras/cadeira-estofada-charlotte/cinza.jpg"
+        },
+        {
+          "color": "verde",
+          "file": "cadeiras/cadeira-estofada-charlotte/verde.jpg"
+        }
+      ]
+    },
+    {
+      "category": "cadeiras",
+      "slug": "kit-2-banquetas-bar-copenhague",
+      "variants": [
+        {
+          "color": "preto",
+          "file": "cadeiras/kit-2-banquetas-bar-copenhague/preto.jpg"
+        },
+        {
+          "color": "marrom",
+          "file": "cadeiras/kit-2-banquetas-bar-copenhague/marrom.jpg"
+        },
+        {
+          "color": "terracota",
+          "file": "cadeiras/kit-2-banquetas-bar-copenhague/terracota.jpg"
+        }
+      ]
+    },
+    {
+      "category": "mesas",
+      "slug": "mesa-centro-tokyo-redonda",
+      "variants": [
+        {
+          "color": "off-white",
+          "file": "mesas/mesa-centro-tokyo-redonda/off-white.jpg"
+        },
+        {
+          "color": "madeira",
+          "file": "mesas/mesa-centro-tokyo-redonda/madeira.jpg"
+        },
+        {
+          "color": "preto",
+          "file": "mesas/mesa-centro-tokyo-redonda/preto.jpg"
+        }
+      ]
+    },
+    {
+      "category": "mesas",
+      "slug": "mesa-jantar-provence-6-lugares",
+      "variants": [
+        {
+          "color": "branco",
+          "file": "mesas/mesa-jantar-provence-6-lugares/branco.jpg"
+        },
+        {
+          "color": "caramelo",
+          "file": "mesas/mesa-jantar-provence-6-lugares/caramelo.jpg"
+        },
+        {
+          "color": "preto",
+          "file": "mesas/mesa-jantar-provence-6-lugares/preto.jpg"
+        }
+      ]
+    },
+    {
+      "category": "mesas",
+      "slug": "mesa-jantar-redonda-milano-4-lugares",
+      "variants": [
+        {
+          "color": "preto",
+          "file": "mesas/mesa-jantar-redonda-milano-4-lugares/preto.jpg"
+        },
+        {
+          "color": "caramelo",
+          "file": "mesas/mesa-jantar-redonda-milano-4-lugares/caramelo.jpg"
+        },
+        {
+          "color": "off-white",
+          "file": "mesas/mesa-jantar-redonda-milano-4-lugares/off-white.jpg"
+        }
+      ]
+    },
+    {
+      "category": "camas",
+      "slug": "cama-box-casal-estocolmo-bau",
+      "variants": [
+        {
+          "color": "bege",
+          "file": "camas/cama-box-casal-estocolmo-bau/bege.jpg"
+        },
+        {
+          "color": "cinza",
+          "file": "camas/cama-box-casal-estocolmo-bau/cinza.jpg"
+        },
+        {
+          "color": "marrom",
+          "file": "camas/cama-box-casal-estocolmo-bau/marrom.jpg"
+        }
+      ]
+    },
+    {
+      "category": "camas",
+      "slug": "cama-queen-amsterdam-cabeceira-ripada",
+      "variants": [
+        {
+          "color": "off-white",
+          "file": "camas/cama-queen-amsterdam-cabeceira-ripada/off-white.jpg"
+        },
+        {
+          "color": "cinza",
+          "file": "camas/cama-queen-amsterdam-cabeceira-ripada/cinza.jpg"
+        },
+        {
+          "color": "preto",
+          "file": "camas/cama-queen-amsterdam-cabeceira-ripada/preto.jpg"
+        }
+      ]
+    },
+    {
+      "category": "camas",
+      "slug": "cabeceira-estofada-veludo-casal",
+      "variants": [
+        {
+          "color": "marrom",
+          "file": "camas/cabeceira-estofada-veludo-casal/marrom.jpg"
+        },
+        {
+          "color": "bege",
+          "file": "camas/cabeceira-estofada-veludo-casal/bege.jpg"
+        },
+        {
+          "color": "verde",
+          "file": "camas/cabeceira-estofada-veludo-casal/verde.jpg"
+        }
+      ]
+    },
+    {
+      "category": "guarda-roupas",
+      "slug": "guarda-roupa-madri-6-portas-espelho",
+      "variants": [
+        {
+          "color": "branco",
+          "file": "guarda-roupas/guarda-roupa-madri-6-portas-espelho/branco.jpg"
+        },
+        {
+          "color": "caramelo",
+          "file": "guarda-roupas/guarda-roupa-madri-6-portas-espelho/caramelo.jpg"
+        },
+        {
+          "color": "preto",
+          "file": "guarda-roupas/guarda-roupa-madri-6-portas-espelho/preto.jpg"
+        }
+      ]
+    },
+    {
+      "category": "guarda-roupas",
+      "slug": "par-criados-mudos-nordico-2-gavetas",
+      "variants": [
+        {
+          "color": "off-white",
+          "file": "guarda-roupas/par-criados-mudos-nordico-2-gavetas/off-white.jpg"
+        },
+        {
+          "color": "madeira",
+          "file": "guarda-roupas/par-criados-mudos-nordico-2-gavetas/madeira.jpg"
+        },
+        {
+          "color": "cinza",
+          "file": "guarda-roupas/par-criados-mudos-nordico-2-gavetas/cinza.jpg"
+        }
+      ]
+    },
+    {
+      "category": "guarda-roupas",
+      "slug": "comoda-retro-4-gavetas",
+      "variants": [
+        {
+          "color": "branco",
+          "file": "guarda-roupas/comoda-retro-4-gavetas/branco.jpg"
+        },
+        {
+          "color": "madeira",
+          "file": "guarda-roupas/comoda-retro-4-gavetas/madeira.jpg"
+        },
+        {
+          "color": "grafite",
+          "file": "guarda-roupas/comoda-retro-4-gavetas/grafite.jpg"
+        }
+      ]
+    },
+    {
+      "category": "racks-paineis",
+      "slug": "rack-munique-tv-65",
+      "variants": [
+        {
+          "color": "off-white",
+          "file": "racks-paineis/rack-munique-tv-65/off-white.jpg"
+        },
+        {
+          "color": "caramelo",
+          "file": "racks-paineis/rack-munique-tv-65/caramelo.jpg"
+        },
+        {
+          "color": "preto",
+          "file": "racks-paineis/rack-munique-tv-65/preto.jpg"
+        }
+      ]
+    },
+    {
+      "category": "racks-paineis",
+      "slug": "painel-ripado-berlim-220",
+      "variants": [
+        {
+          "color": "branco",
+          "file": "racks-paineis/painel-ripado-berlim-220/branco.jpg"
+        },
+        {
+          "color": "madeira",
+          "file": "racks-paineis/painel-ripado-berlim-220/madeira.jpg"
+        },
+        {
+          "color": "cinza",
+          "file": "racks-paineis/painel-ripado-berlim-220/cinza.jpg"
+        }
+      ]
+    },
+    {
+      "category": "racks-paineis",
+      "slug": "buffet-toscana-4-portas",
+      "variants": [
+        {
+          "color": "preto",
+          "file": "racks-paineis/buffet-toscana-4-portas/preto.jpg"
+        },
+        {
+          "color": "madeira",
+          "file": "racks-paineis/buffet-toscana-4-portas/madeira.jpg"
+        },
+        {
+          "color": "off-white",
+          "file": "racks-paineis/buffet-toscana-4-portas/off-white.jpg"
+        }
+      ]
+    },
+    {
+      "category": "escritorio",
+      "slug": "escrivaninha-home-office-nova",
+      "variants": [
+        {
+          "color": "branco",
+          "file": "escritorio/escrivaninha-home-office-nova/branco.jpg"
+        },
+        {
+          "color": "caramelo",
+          "file": "escritorio/escrivaninha-home-office-nova/caramelo.jpg"
+        },
+        {
+          "color": "preto",
+          "file": "escritorio/escrivaninha-home-office-nova/preto.jpg"
+        }
+      ]
+    },
+    {
+      "category": "escritorio",
+      "slug": "cadeira-escritorio-ergonomica-ergo-pro",
+      "variants": [
+        {
+          "color": "preto",
+          "file": "escritorio/cadeira-escritorio-ergonomica-ergo-pro/preto.jpg"
+        },
+        {
+          "color": "cinza",
+          "file": "escritorio/cadeira-escritorio-ergonomica-ergo-pro/cinza.jpg"
+        },
+        {
+          "color": "branco",
+          "file": "escritorio/cadeira-escritorio-ergonomica-ergo-pro/branco.jpg"
+        }
+      ]
+    },
+    {
+      "category": "escritorio",
+      "slug": "estante-modular-grid-escritorio",
+      "variants": [
+        {
+          "color": "preto",
+          "file": "escritorio/estante-modular-grid-escritorio/preto.jpg"
+        },
+        {
+          "color": "caramelo",
+          "file": "escritorio/estante-modular-grid-escritorio/caramelo.jpg"
+        },
+        {
+          "color": "branco",
+          "file": "escritorio/estante-modular-grid-escritorio/branco.jpg"
+        }
+      ]
+    },
+    {
+      "category": "decoracao",
+      "slug": "trio-vasos-ceramicos-fosco",
+      "variants": [
+        {
+          "color": "off-white",
+          "file": "decoracao/trio-vasos-ceramicos-fosco/off-white.jpg"
+        },
+        {
+          "color": "terracota",
+          "file": "decoracao/trio-vasos-ceramicos-fosco/terracota.jpg"
+        },
+        {
+          "color": "areia",
+          "file": "decoracao/trio-vasos-ceramicos-fosco/areia.jpg"
+        }
+      ]
+    }
+  ]
+}

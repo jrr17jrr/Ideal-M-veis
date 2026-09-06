@@ -1,0 +1,20 @@
+IDEAL MÓVEIS — PACK DE IMAGENS DE PRODUTOS
+
+Estrutura:
+categoria/produto-slug/cor.jpg
+
+O pack foi organizado para o Claude Code conseguir mapear as variantes sem trocar o produto inteiro.
+Cada pasta de produto contém 3 imagens do MESMO MODELO VISUAL com mudança de cor/acabamento.
+
+IMPORTANTE:
+- Use manifest.json como mapa.
+- Na página de produto, mantenha o mesmo productId e troque apenas selectedVariant/images.
+- O nome, descrição, categoria e medidas não devem mudar ao selecionar outra cor.
+- Atualize os nomes de cores do mock para coincidir com as imagens disponíveis quando necessário.
+- A pasta _referencias contém as pranchas originais usadas para montar o pack.
+- Decoração inclui o trio-vasos-ceramicos-fosco em 3 acabamentos coerentes.
+
+Destino sugerido:
+public/images/products/variants-pack/
+
+Depois de copiar, peça ao Claude para ler manifest.json e fazer o mapeamento dos produtos/variantes.
